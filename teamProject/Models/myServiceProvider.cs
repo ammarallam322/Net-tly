@@ -1,6 +1,6 @@
 ﻿namespace teamProject.Models
 {
-    public class ServiceProviderRepository
+    public class myServiceProvider
     {
         public int Id { get; set; }
 

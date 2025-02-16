@@ -19,7 +19,7 @@ namespace teamProject.Models
 
 
         public virtual DbSet<package> Packages { get; set; }
-        public virtual DbSet<ServiceProviderRepository> ServiceProviders { get; set; }
+        public virtual DbSet<myServiceProvider> ServiceProviders { get; set; }
 
 
 
