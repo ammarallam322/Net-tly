@@ -7,7 +7,7 @@ namespace teamProject.Repository
     public class RepositoryGeneric<TEntity> : IRepositoryGeneric<TEntity> where TEntity : class
     {
         //
-        TeamContext context;
+        public TeamContext context;
 
         public RepositoryGeneric(TeamContext context)
         {

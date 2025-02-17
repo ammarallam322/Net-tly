@@ -20,7 +20,7 @@ namespace teamProject.Models
         //nav ?? virtual??
         //nav ?virtual?
 
-        public virtual List<Provider_Package> Provider_Packages { get; set; }
+        public virtual List<Provider_Package>? Provider_Packages { get; set; }
 
     }
 }
