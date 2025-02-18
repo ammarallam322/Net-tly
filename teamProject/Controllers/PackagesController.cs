@@ -1,25 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using teamProject.Models;
 using teamProject.Repository;
+using teamProject.viewModel;
 
 namespace teamProject.Controllers
 {
     public class PackagesController : Controller
     {
-        //private readonly TeamContext _context;
         IRepositoryGeneric<package> repo;
-
-        public PackagesController(IRepositoryGeneric<package> repo)
+        //ref fom mapconfig
+        IMapper mapper;
+        public PackagesController(IRepositoryGeneric<package> repo , IMapper mapper)
         {
             this.repo = repo;
+            this.mapper = mapper;
         }
 
 
         // GET: packages
         public IActionResult Index()
         {
-            return View("Index",repo.GetAll());
+           return View("Index", repo.GetAll());
+            
+
         }
 
         public IActionResult Details(int id)
@@ -43,18 +48,20 @@ namespace teamProject.Controllers
             return View();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public IActionResult Create([Bind("Id,Name,Type,Notes,Active,Price")] package package)
+        public IActionResult Create(PackagesViewModel packageVM)
         {
             if (ModelState.IsValid)
             {
+               
+                package package = mapper.Map<package>(packageVM);
+
+
                 repo.Add(package);
                 repo.Save();
                 return RedirectToAction(nameof(Index));
             }
-            return View(package);
+            return View(packageVM);
         }
 
         public IActionResult Edit(int id)
@@ -72,18 +79,17 @@ namespace teamProject.Controllers
             return View(package);
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public IActionResult Edit(int id, [Bind("Id,Name,Type,Notes,Active,Price")] package package)
+        public IActionResult Edit(int id, PackagesViewModel packageVM)
         {
-            if (id != package.Id)
-            {
-                return NotFound();
-            }
+
+
 
             if (ModelState.IsValid)
             {
+                //mapping
+                package package = mapper.Map<package>(packageVM);
+                package.Id = id;
                 try
                 {
                     repo.Update(package);
@@ -98,10 +104,8 @@ namespace teamProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(package);
+            return View(packageVM);
         }
-
-        // GET: packages/Delete/5
         public IActionResult Delete(int id)
         {
            
@@ -127,6 +131,16 @@ namespace teamProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-       
+
+
+
+
+
+
+
+
+
+
+
     }
 }
