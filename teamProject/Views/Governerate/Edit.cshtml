@@ -1,0 +1,47 @@
+﻿@model teamProject.Models.Governerate
+
+@{
+    ViewData["Title"] = "Edit Governerate";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center text-primary">Edit Governerate</h1>
+    <hr />
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4">
+                <h4 class="text-secondary">Update Governerate Details</h4>
+                <hr />
+                <form asp-action="SaveEdit">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label fw-semibold">Name:</label>
+                        <div class="input-group">
+                            <span class="input-group-text">🏛</span>
+                            <input asp-for="Name" class="form-control" placeholder="Enter Name" required />
+                        </div>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Code" class="form-label fw-semibold">Code:</label>
+                        <div class="input-group">
+                            <span class="input-group-text">🔢</span>
+                            <input asp-for="Code" class="form-control" placeholder="Enter Code" required />
+                        </div>
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">🔙 Back</a>
+                        <button type="submit" class="btn btn-primary">💾 Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

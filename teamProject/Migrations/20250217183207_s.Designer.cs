@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using teamProject.Models;
 
@@ -10,9 +11,11 @@ using teamProject.Models;
 namespace teamProject.Migrations
 {
     [DbContext(typeof(TeamContext))]
-    partial class TeamContextModelSnapshot : ModelSnapshot
+    [Migration("20250217183207_s")]
+    partial class s
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +40,7 @@ namespace teamProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Manager_Id")
+                    b.Property<int>("Manager_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Mobile")
@@ -65,7 +68,7 @@ namespace teamProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("Gov_Id")
+                    b.Property<int>("Gov_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -147,7 +150,7 @@ namespace teamProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("Branch_Id")
+                    b.Property<int>("Branch_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Code")
@@ -177,7 +180,7 @@ namespace teamProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Servuce_Id")
+                    b.Property<int>("Servuce_Id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -257,7 +260,9 @@ namespace teamProject.Migrations
                 {
                     b.HasOne("teamProject.Models.Governerate", "Governerate")
                         .WithMany("centrals")
-                        .HasForeignKey("Gov_Id");
+                        .HasForeignKey("Gov_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Governerate");
                 });
@@ -282,6 +287,12 @@ namespace teamProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("teamProject.Models.myServiceProvider", "ServiceProvider")
+                        .WithMany()
+                        .HasForeignKey("Service_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Central");
 
                     b.Navigation("Offer");
@@ -295,7 +306,9 @@ namespace teamProject.Migrations
                 {
                     b.HasOne("teamProject.Models.Branch", "Branch")
                         .WithMany("Governerates")
-                        .HasForeignKey("Branch_Id");
+                        .HasForeignKey("Branch_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Branch");
                 });
@@ -304,7 +317,9 @@ namespace teamProject.Migrations
                 {
                     b.HasOne("teamProject.Models.myServiceProvider", "ServiceProvider")
                         .WithMany("Offers")
-                        .HasForeignKey("Servuce_Id");
+                        .HasForeignKey("Servuce_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ServiceProvider");
                 });
