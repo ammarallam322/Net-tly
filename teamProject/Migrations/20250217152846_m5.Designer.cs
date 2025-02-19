@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using teamProject.Models;
 
@@ -10,9 +11,11 @@ using teamProject.Models;
 namespace teamProject.Migrations
 {
     [DbContext(typeof(TeamContext))]
-    partial class TeamContextModelSnapshot : ModelSnapshot
+    [Migration("20250217152846_m5")]
+    partial class m5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,17 +90,6 @@ namespace teamProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Central_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Mobile")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -106,9 +98,6 @@ namespace teamProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Offer_Id")
-                        .HasColumnType("int");
-
                     b.Property<int>("Package_Id")
                         .HasColumnType("int");
 
@@ -116,25 +105,12 @@ namespace teamProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SSN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Service_Id")
-                        .HasColumnType("int");
-
                     b.Property<int>("User_Id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Central_Id");
-
-                    b.HasIndex("Offer_Id");
-
                     b.HasIndex("Package_Id");
-
-                    b.HasIndex("Service_Id");
 
                     b.ToTable("Clients");
                 });
@@ -147,7 +123,7 @@ namespace teamProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("Branch_Id")
+                    b.Property<int>("Branch_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Code")
@@ -266,35 +242,11 @@ namespace teamProject.Migrations
 
             modelBuilder.Entity("teamProject.Models.Client", b =>
                 {
-                    b.HasOne("teamProject.Models.Central", "Central")
-                        .WithMany()
-                        .HasForeignKey("Central_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("teamProject.Models.Offer", "Offer")
-                        .WithMany()
-                        .HasForeignKey("Offer_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("teamProject.Models.package", "package")
                         .WithMany()
                         .HasForeignKey("Package_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("teamProject.Models.myServiceProvider", "ServiceProvider")
-                        .WithMany()
-                        .HasForeignKey("Service_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Central");
-
-                    b.Navigation("Offer");
-
-                    b.Navigation("ServiceProvider");
 
                     b.Navigation("package");
                 });
@@ -303,7 +255,9 @@ namespace teamProject.Migrations
                 {
                     b.HasOne("teamProject.Models.Branch", "Branch")
                         .WithMany("Governerates")
-                        .HasForeignKey("Branch_Id");
+                        .HasForeignKey("Branch_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Branch");
                 });

@@ -1,10 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using teamProject.Models;
 
-namespace teamProject.Models
+namespace teamProject.viewModel
 {
-    public class package
+    public class PackagesViewModel
     {
-        public int Id { get; set; }
 
         public string Name { get; set; }
         public string Type { get; set; }
@@ -21,6 +20,5 @@ namespace teamProject.Models
         //nav ?virtual?
 
         public virtual List<Provider_Package>? Provider_Packages { get; set; }
-
     }
 }

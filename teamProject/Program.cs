@@ -1,7 +1,9 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Options;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using teamProject.MapConfig;
 using teamProject.Models;
 using teamProject.Repository;
 
@@ -19,16 +21,21 @@ namespace teamProject
             //register of context
             builder.Services.AddDbContext<TeamContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("CS"));
 
 
             });
+
+            //adding mapper
+            builder.Services.AddAutoMapper(typeof(PackageConfig));
+
 
 
 
             //register of generic repository
 
             builder.Services.AddScoped(typeof(IRepositoryGeneric<>), typeof(RepositoryGeneric<>));
+            builder.Services.AddScoped(typeof(IRepositoryGeneric<Client>), typeof(RepositoryGeneric<Client>));
 
 
 

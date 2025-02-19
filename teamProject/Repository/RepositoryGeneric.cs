@@ -1,4 +1,6 @@
 ﻿
+using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using teamProject.Models;
 
@@ -6,13 +8,16 @@ namespace teamProject.Repository
 {
     public class RepositoryGeneric<TEntity> : IRepositoryGeneric<TEntity> where TEntity : class
     {
+      
         //
-        TeamContext context;
+        public TeamContext context;
 
         public RepositoryGeneric(TeamContext context)
         {
             this.context = context;
+          
         }
+      
 
         public List<TEntity> GetAll()
         {
@@ -42,5 +47,6 @@ namespace teamProject.Repository
             context.SaveChanges();
         }
 
+      
     }
 }

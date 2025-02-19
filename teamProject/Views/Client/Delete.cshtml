@@ -1,0 +1,86 @@
+﻿@model teamProject.viewModel.ClientViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ClientViewModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Id
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Id
+        </dd>
+        <dt class="col-sm-2">
+            Name
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Name
+        </dd>
+        <dt class="col-sm-2">
+            Mobile
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Mobile
+        </dd>
+        <dt class="col-sm-2">
+            Phone
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Phone
+        </dd>
+        <dt class="col-sm-2">
+            Address
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Address
+        </dd>
+        <dt class="col-sm-2">
+            Email
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Email
+        </dd>
+        <dt class="col-sm-2">
+            SSN
+        </dt>
+        <dd class="col-sm-10">
+            @Model.SSN
+        </dd>
+        <dt class="col-sm-2">
+            Service Id
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Service_Id
+        </dd>
+        <dt class="col-sm-2">
+            Offer Id
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Offer_Id
+        </dd>
+        <dt class="col-sm-2">
+            Central Id
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Central_Id
+        </dd>
+        <dt class="col-sm-2">
+            Package Id
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Package_Id
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a href="@Url.Action("Index")">Back to List</a>
+    </form>
+</div>
