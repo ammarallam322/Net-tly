@@ -1,0 +1,52 @@
+﻿@model IEnumerable<teamProject.Models.Client>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a href="@Url.Action("Create")">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Mobile</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>SSN</th>
+            <th>Service Id</th>
+            <th>Offer Id</th>
+            <th>Central Id</th>
+            <th>Package Id</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Mobile</td>
+                <td>@item.Phone</td>
+                <td>@item.Address</td>
+                <td>@item.Email</td>
+                <td>@item.SSN</td>
+                <td>@item.Service_Id</td>
+                <td>@item.Offer_Id</td>
+                <td>@item.Central_Id</td>
+                <td>@item.Package_Id</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = item.Id })">Edit</a> |
+                    <a href="@Url.Action("Details", new { id = item.Id })">Details</a> |
+                    <a href="@Url.Action("Delete", new { id = item.Id })">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
