@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+  @using teamProject.viewModel  
+  @model CentralGovernmentViewModel  
+
+  <h2>@(Model.Id == 0 ? "add Central" : "edit Central")</h2>  
+
+ <form asp-action= "SaveCreate" method="post"> 
+     <input type="hidden" asp-for="Id" /> 
+
+    <div class="form-group"> 
+         <label asp-for="Name"></label> 
+        <input asp-for="Name" class="form-control" /> 
+        <span asp-validation-for="Name" class="text-danger"></span> 
+    </div>
+
+     <div class="form-group"> 
+         <label asp-for="Gov_Id">Government</label> 
+         <select asp-for="Gov_Id" asp-items="Model.Governerates" class="form-control"></select> 
+        <span asp-validation-for="Gov_Id" class="text-danger"></span> 
+     </div> 
+
+     <button  type="submit" class="btn btn-success">Save</button> 
+     <a asp-action="Index" class="btn btn-secondary">Cancel</a> 
+ </form> 
+ 
+
+
+

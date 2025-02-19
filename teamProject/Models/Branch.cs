@@ -14,7 +14,7 @@
         public string Phone { get; set; }///???has more than one phone number
 
         //f.k?? (user | employee)
-        public int Manager_Id { get; set; }
+        public int? Manager_Id { get; set; }
 
         //nav
         public virtual List<Governerate>Governerates { get; set; }

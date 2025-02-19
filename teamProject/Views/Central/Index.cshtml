@@ -1,0 +1,33 @@
+﻿@using teamProject.viewModel
+@model IEnumerable<CentralGovernmentViewModel>
+
+<h2>list of  Centrals</h2>
+<a asp-action="Create" class="btn btn-success">add new Central </a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>name of central</th>
+            <th>government</th>
+            <th> actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.GovernerateName</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@* @{ *@
+@*     ViewData["Title"] = "Index"; *@
+@* } *@
+
+@* <h1>Index</h1> *@
+

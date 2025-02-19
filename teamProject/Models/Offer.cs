@@ -12,7 +12,7 @@ namespace teamProject.Models
         //nav ?? virtual??
         public virtual myServiceProvider ServiceProvider { get; set; }
         [ForeignKey(nameof(ServiceProvider))]
-        public int Servuce_Id { get; set; }
+        public int? Servuce_Id { get; set; }
 
     }
 }

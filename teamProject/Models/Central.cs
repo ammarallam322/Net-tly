@@ -12,7 +12,7 @@ namespace teamProject.Models
         public virtual Governerate Governerate { get; set; }
 
         [ForeignKey(nameof(Governerate))]
-        public int Gov_Id { get; set; }
+        public int? Gov_Id { get; set; }
 
 
     }

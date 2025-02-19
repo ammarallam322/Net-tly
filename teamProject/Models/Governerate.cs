@@ -17,11 +17,7 @@ namespace teamProject.Models
         public virtual Branch Branch { get; set; }
 
         [ForeignKey(nameof(Branch))]
-        public int Branch_Id { get; set; }
-
-
-
-
+        public int? Branch_Id { get; set; }
 
     }
 }

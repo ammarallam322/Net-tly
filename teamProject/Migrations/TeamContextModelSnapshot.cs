@@ -37,7 +37,7 @@ namespace teamProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Manager_Id")
+                    b.Property<int?>("Manager_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Mobile")
@@ -65,7 +65,7 @@ namespace teamProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Gov_Id")
+                    b.Property<int?>("Gov_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -95,7 +95,7 @@ namespace teamProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Package_Id")
+                    b.Property<int?>("Package_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Phone")
@@ -120,7 +120,7 @@ namespace teamProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Branch_Id")
+                    b.Property<int?>("Branch_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Code")
@@ -150,7 +150,7 @@ namespace teamProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Servuce_Id")
+                    b.Property<int?>("Servuce_Id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -230,9 +230,7 @@ namespace teamProject.Migrations
                 {
                     b.HasOne("teamProject.Models.Governerate", "Governerate")
                         .WithMany("centrals")
-                        .HasForeignKey("Gov_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Gov_Id");
 
                     b.Navigation("Governerate");
                 });
@@ -241,9 +239,7 @@ namespace teamProject.Migrations
                 {
                     b.HasOne("teamProject.Models.package", "package")
                         .WithMany()
-                        .HasForeignKey("Package_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Package_Id");
 
                     b.Navigation("package");
                 });
@@ -252,9 +248,7 @@ namespace teamProject.Migrations
                 {
                     b.HasOne("teamProject.Models.Branch", "Branch")
                         .WithMany("Governerates")
-                        .HasForeignKey("Branch_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Branch_Id");
 
                     b.Navigation("Branch");
                 });
@@ -263,9 +257,7 @@ namespace teamProject.Migrations
                 {
                     b.HasOne("teamProject.Models.myServiceProvider", "ServiceProvider")
                         .WithMany("Offers")
-                        .HasForeignKey("Servuce_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Servuce_Id");
 
                     b.Navigation("ServiceProvider");
                 });

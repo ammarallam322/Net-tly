@@ -24,7 +24,10 @@ namespace teamProject
 
             });
 
+            builder.Services.AddDbContext<TeamContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddControllersWithViews();
 
             //register of generic repository
 
