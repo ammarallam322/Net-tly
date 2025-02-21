@@ -29,10 +29,7 @@ namespace teamProject.Controllers
 
         public IActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+         
 
             var package = repo.GetById(id);
             if (package == null)
