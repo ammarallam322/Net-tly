@@ -66,10 +66,7 @@ namespace teamProject.Controllers
 
         public IActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            
 
             var package = repo.GetById(id);
             if (package == null)
