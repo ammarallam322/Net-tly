@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using teamProject.Models;
 using teamProject.viewModel;
+using teamProject.viewModel.Branch;
 
 namespace teamProject.MapConfig
 {
@@ -8,6 +9,16 @@ namespace teamProject.MapConfig
     {
         public ClientConfig() {
             CreateMap<Client, ClientViewModel>().AfterMap((src, dist) => { }).ReverseMap();
+
+            // Branch Mapping [Added by Mohab]
+            CreateMap<Branch, BranchPhMobViewModel>().AfterMap((src, dest) =>
+            {
+                dest.Mobile1 = src.BranchMobiles.Br_Mob1;
+                dest.Mobile2 = src.BranchMobiles.Br_Mob2;
+                dest.Phone1 = src.BranchPhones.Br_Ph1;
+                dest.Phone2 = src.BranchPhones.Br_Ph2;
+                dest.ManagerName = src.Manager.UserName;
+            }).ReverseMap();
         }
     }
 }

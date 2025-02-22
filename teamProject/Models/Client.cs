@@ -16,7 +16,7 @@ namespace teamProject.Models
 
         [ForeignKey(nameof(ServiceProvider))]
         public int Service_Id { get; set; }
-        public virtual myServiceProvider ServiceProvider { get; set; }
+        public virtual myServiceProvider? ServiceProvider { get; set; }
 
         [ForeignKey(nameof(Offer))]
         public int Offer_Id { get; set; }

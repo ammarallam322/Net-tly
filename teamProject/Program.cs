@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using teamProject.MapConfig;
 using teamProject.Models;
 using teamProject.Repository;
+using teamProject.Repository.ImodelRepository;
 
 namespace teamProject
 {
@@ -21,25 +22,18 @@ namespace teamProject
             //register of context
             builder.Services.AddDbContext<TeamContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("CS"));
-
-
+                options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("CS"));
             });
 
             //adding mapper
             builder.Services.AddAutoMapper(typeof(PackageConfig));
 
-
             builder.Services.AddControllersWithViews();
 
-
             //register of generic repository
-
             builder.Services.AddScoped(typeof(IRepositoryGeneric<>), typeof(RepositoryGeneric<>));
             builder.Services.AddScoped(typeof(IRepositoryGeneric<Client>), typeof(RepositoryGeneric<Client>));
-
-
-
+            builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 
             var app = builder.Build();
 
@@ -52,11 +46,13 @@ namespace teamProject
             }
 
             app.UseHttpsRedirection();
+
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.MapStaticAssets();
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")

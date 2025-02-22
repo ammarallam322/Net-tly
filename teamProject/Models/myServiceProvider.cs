@@ -17,5 +17,9 @@
 
         public virtual List<Provider_Package> Provider_Packages { get; set; }
 
+        // [Added by Mohab 22-2]
+        //public virtual List<Client> Clients { get; } = new List<Client>();
+
+
     }
 }

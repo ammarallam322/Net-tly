@@ -2,21 +2,25 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace teamProject.Models
+namespace teamProject.viewModel.Branch
 {
-    public class Branch
+    public class BranchPhMobViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string? Fax { get; set; }
+        [MaxLength(11)]
+        public string? Mobile1 { get; set; }
+        [MaxLength(11)]
+        public string? Mobile2 { get; set; }
+        [MaxLength(25)]
+        public string? Phone1 { get; set; }
+        [MaxLength(25)]
+        public string? Phone2 { get; set; }
         [Display(Name = "Manager")]
         [ForeignKey("Manager")]
-        public string Manager_Id { get; set; }
+        public string ManagerName { get; set; }
         public virtual List<IdentityUser> Users { get; } = new List<IdentityUser>();
-        public virtual List<Governerate> Governerates { get; } = new List<Governerate>();
-        public virtual IdentityUser? Manager { get; set; }
-        public virtual BranchMobile? BranchMobiles { get; set; }
-        public virtual BranchPhone? BranchPhones { get; set; }
     }
 }

@@ -1,0 +1,57 @@
+﻿@model List<BranchPhMobViewModel>;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Branches</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Moblie 1</th>
+            <th>Mobile 2</th>
+            <th>Phone 1</th>
+            <th>Phone 2</th>
+            <th>Fax</th>
+            <th>Manager</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Address</td>
+                    <td>@product.Mobile1</td>
+                    <td>@product.Mobile2</td>
+                    <td>@product.Phone1</td>
+                    <td>@product.Phone2</td>
+                    <td>@product.Fax</td>
+                    <td>@product.ManagerName</td>
+                    <td>
+                        <a asp-controller="Branch" asp-action="Edit" asp-route-Id="@product.Id" class="btn btn-primary" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                    <td>
+                             <a asp-controller="Branch" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-danger" title="Delete">
+                            <i class="fas fa-trash"></i>
+                         </a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
