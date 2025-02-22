@@ -29,15 +29,15 @@ namespace teamProject.viewModel
         public string SSN { get; set; }
 
         public int Service_Id { get; set; }
-        public SelectList myServiceProviders { get; set; }
+        public virtual SelectList? myServiceProviders { get; set; }
 
         public int Offer_Id { get; set; }
-        public SelectList Offer_Services { get; set; }
+        public virtual SelectList? Offer_Services { get; set; }
 
         public int Central_Id { get; set; }
-        public SelectList centrals { get; set; }
+        public virtual SelectList? centrals { get; set; }
 
         public int Package_Id { get; set; }
-        public SelectList packages { get; set; }
+        public virtual SelectList? packages { get; set; }
     }
 }

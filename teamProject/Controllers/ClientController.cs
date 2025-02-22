@@ -9,7 +9,7 @@ namespace teamProject.Controllers
 {
     public class ClientController : Controller
     {
-        private readonly IRepositoryGeneric<Client> repo;
+        private readonly IRepositoryGeneric<Client> clientRepository;
         private readonly IRepositoryGeneric<myServiceProvider> serviceRepo;
         private readonly IRepositoryGeneric<Offer> offerRepo;
         private readonly IRepositoryGeneric<package> packageRepo;
@@ -20,7 +20,7 @@ namespace teamProject.Controllers
             IRepositoryGeneric<myServiceProvider> serviceRepo , IRepositoryGeneric<Offer> offerRepo ,
             IRepositoryGeneric<package> packageRepo , IRepositoryGeneric<Central> centralRepo )
         {
-            this.repo = clientRepository;
+            this.clientRepository = clientRepository;
             this.mapper = mapper;
             this.serviceRepo = serviceRepo;
             this.offerRepo = offerRepo;
@@ -30,12 +30,12 @@ namespace teamProject.Controllers
         public IActionResult Index()
         {
 
-            return View("Index", repo.GetAll());
+            return View("Index", clientRepository.GetAll());
         }
 
         public IActionResult Details(int id)
         {
-            var package = repo.GetById(id);
+            var package = clientRepository.GetById(id);
 
             if (package == null)
             {
@@ -56,28 +56,43 @@ namespace teamProject.Controllers
             };
             return View(model);
         }
-
         [HttpPost]
         public IActionResult Create(ClientViewModel clientVM)
         {
             if (ModelState.IsValid)
             {
                 Client client = mapper.Map<Client>(clientVM);
-                repo.Add(client);
-                repo.Save();
+                clientRepository.Add(client);
+                clientRepository.Save();
                 return RedirectToAction(nameof(Index));
             }
-            return View(clientVM);
+
+            ClientViewModel model = new ClientViewModel
+            {
+                myServiceProviders = new SelectList(serviceRepo.GetAll(), "Id", "Name"),
+                packages = new SelectList(packageRepo.GetAll(), "Id", "Name"),
+                Offer_Services = new SelectList(offerRepo.GetAll(), "Id", "Name"),
+                centrals = new SelectList(centralRepo.GetAll(), "Id", "Name")
+            };
+            return View(model);
         }
 
         public IActionResult Edit(int id)
-        {
-            var package = repo.GetById(id);
+        { 
+            var package = clientRepository.GetById(id);
+            ClientViewModel clientVM = mapper.Map<ClientViewModel>(package);
+            clientVM = new ClientViewModel
+            {
+                myServiceProviders = new SelectList(serviceRepo.GetAll(), "Id", "Name"),
+                packages = new SelectList(packageRepo.GetAll(), "Id", "Name"),
+                Offer_Services = new SelectList(offerRepo.GetAll(), "Id", "Name"),
+                centrals = new SelectList(centralRepo.GetAll(), "Id", "Name")
+            };
             if (package == null)
             {
                 return NotFound();
             }
-            return View(package);
+            return View(clientVM);
         }
 
         [HttpPost]
@@ -89,8 +104,8 @@ namespace teamProject.Controllers
                 client.Id = id;
                 try
                 {
-                    repo.Update(client);
-                    repo.Save();
+                    clientRepository.Update(client);
+                    clientRepository.Save();
                 }
                 catch (Exception ex)
                 {
@@ -104,7 +119,7 @@ namespace teamProject.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var package = repo.GetById(id);
+            var package = clientRepository.GetById(id);
             if (package == null)
             {
                 return NotFound();
@@ -116,15 +131,15 @@ namespace teamProject.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            var package = repo.GetById(id);
+            var package = clientRepository.GetById(id);
             if (package == null)
             {
                 return NotFound();
             }
             try
             {
-                repo.Delete(id);
-                repo.Save();
+                clientRepository.Delete(id);
+                clientRepository.Save();
             }
             catch (Exception ex)
             {
