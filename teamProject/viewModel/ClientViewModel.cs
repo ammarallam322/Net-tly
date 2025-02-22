@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
+using teamProject.Models;
 
 namespace teamProject.viewModel
 {
@@ -27,8 +29,15 @@ namespace teamProject.viewModel
         public string SSN { get; set; }
 
         public int Service_Id { get; set; }
+        public SelectList myServiceProviders { get; set; }
+
         public int Offer_Id { get; set; }
+        public SelectList Offer_Services { get; set; }
+
         public int Central_Id { get; set; }
+        public SelectList centrals { get; set; }
+
         public int Package_Id { get; set; }
+        public SelectList packages { get; set; }
     }
 }
