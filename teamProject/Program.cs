@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.Data.SqlClient;
@@ -35,6 +36,20 @@ namespace teamProject
             builder.Services.AddScoped(typeof(IRepositoryGeneric<Client>), typeof(RepositoryGeneric<Client>));
             builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 
+
+
+
+            // regester of identity and simplyfing password constraints
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 5;
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+
+            }).AddEntityFrameworkStores<TeamContext>();
+
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -53,9 +68,10 @@ namespace teamProject
 
             app.MapStaticAssets();
 
+            // setting  login as default route
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Account}/{action=Login}")
                 .WithStaticAssets();
 
             app.Run();

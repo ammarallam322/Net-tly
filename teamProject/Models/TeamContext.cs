@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
+using teamProject.viewModel;
 
 namespace teamProject.Models
 {
-    public class TeamContext : DbContext
+    public class TeamContext : IdentityDbContext<ApplicationUser>
     {
         public virtual DbSet<Branch> Branches { get; set; }
         public virtual DbSet<BranchMobile> BrancheMoblies { get; set; }
@@ -41,5 +43,7 @@ namespace teamProject.Models
         {
             base.OnModelCreating(modelBuilder);
         }
+        public DbSet<teamProject.viewModel.RegisterViewModel> RegisterViewModel { get; set; } = default!;
+        public DbSet<teamProject.viewModel.LoginViewModel> LoginViewModel { get; set; } = default!;
     }
 }
