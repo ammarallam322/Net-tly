@@ -10,16 +10,14 @@
         public bool Active { get; set; }
 
         //nav ?virtual?
-        public virtual List<Offer> Offers { get; set; }
+        public virtual List<Offer>? Offers { get; set; }
 
 
         //nav ?virtual?
 
-        public virtual List<Provider_Package> Provider_Packages { get; set; }
+        public virtual List<Provider_Package>? Provider_Packages { get; set; }
 
         // [Added by Mohab 22-2]
-        //public virtual List<Client> Clients { get; } = new List<Client>();
-
-
+        public virtual List<Client>? Clients { get; set;  }
     }
 }

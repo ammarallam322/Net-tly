@@ -14,11 +14,12 @@ namespace teamProject.Models
         public string Email { get; set; }
         public string SSN { get; set; }
 
-        [ForeignKey(nameof(ServiceProvider))]
+        [ForeignKey("ServiceProvider")]
+
         public int Service_Id { get; set; }
         public virtual myServiceProvider? ServiceProvider { get; set; }
 
-        [ForeignKey(nameof(Offer))]
+        [ForeignKey("Offer")]
         public int Offer_Id { get; set; }
         public virtual Offer Offer { get; set; }
 

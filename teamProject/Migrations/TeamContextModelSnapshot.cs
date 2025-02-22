@@ -17,6 +17,9 @@ namespace teamProject.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -34,13 +37,9 @@ namespace teamProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Fax")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Manager_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Mobile")
+                    b.Property<string>("Manager_Id")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -48,13 +47,63 @@ namespace teamProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
+
+                    b.ToTable("Branches", (string)null);
+                });
+
+            modelBuilder.Entity("teamProject.Models.BranchMobile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Br_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Br_Mob1")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("Br_Mob2")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Branches");
+                    b.HasIndex("Br_Id")
+                        .IsUnique();
+
+                    b.ToTable("BrancheMoblies", (string)null);
+                });
+
+            modelBuilder.Entity("teamProject.Models.BranchPhone", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Br_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Br_Ph1")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("Br_Ph2")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Br_Id")
+                        .IsUnique();
+
+                    b.ToTable("BranchePhones", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.Central", b =>
@@ -76,7 +125,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Gov_Id");
 
-                    b.ToTable("Centrals");
+                    b.ToTable("Centrals", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.Client", b =>
@@ -109,7 +158,7 @@ namespace teamProject.Migrations
                     b.Property<int>("Offer_Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("Package_Id")
+                    b.Property<int?>("Package_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Phone")
@@ -136,7 +185,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Service_Id");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.Governerate", b =>
@@ -152,7 +201,8 @@ namespace teamProject.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -162,7 +212,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Branch_Id");
 
-                    b.ToTable("Governerates");
+                    b.ToTable("Governerates", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.Offer", b =>
@@ -184,7 +234,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Servuce_Id");
 
-                    b.ToTable("Offers");
+                    b.ToTable("Offers", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.Provider_Package", b =>
@@ -199,7 +249,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("provider_Id");
 
-                    b.ToTable("Provider_Package");
+                    b.ToTable("Provider_Package", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.myServiceProvider", b =>
@@ -219,7 +269,7 @@ namespace teamProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServiceProviders");
+                    b.ToTable("ServiceProviders", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.package", b =>
@@ -250,7 +300,29 @@ namespace teamProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Packages");
+                    b.ToTable("Packages", (string)null);
+                });
+
+            modelBuilder.Entity("teamProject.Models.BranchMobile", b =>
+                {
+                    b.HasOne("teamProject.Models.Branch", "branch")
+                        .WithOne("BranchMobiles")
+                        .HasForeignKey("teamProject.Models.BranchMobile", "Br_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("branch");
+                });
+
+            modelBuilder.Entity("teamProject.Models.BranchPhone", b =>
+                {
+                    b.HasOne("teamProject.Models.Branch", "branch")
+                        .WithOne("BranchPhones")
+                        .HasForeignKey("teamProject.Models.BranchPhone", "Br_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("branch");
                 });
 
             modelBuilder.Entity("teamProject.Models.Central", b =>
@@ -278,7 +350,11 @@ namespace teamProject.Migrations
 
                     b.HasOne("teamProject.Models.package", "package")
                         .WithMany()
-                        .HasForeignKey("Package_Id")
+                        .HasForeignKey("Package_Id");
+
+                    b.HasOne("teamProject.Models.myServiceProvider", "ServiceProvider")
+                        .WithMany("Clients")
+                        .HasForeignKey("Service_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -330,6 +406,10 @@ namespace teamProject.Migrations
 
             modelBuilder.Entity("teamProject.Models.Branch", b =>
                 {
+                    b.Navigation("BranchMobiles");
+
+                    b.Navigation("BranchPhones");
+
                     b.Navigation("Governerates");
                 });
 
@@ -340,6 +420,8 @@ namespace teamProject.Migrations
 
             modelBuilder.Entity("teamProject.Models.myServiceProvider", b =>
                 {
+                    b.Navigation("Clients");
+
                     b.Navigation("Offers");
 
                     b.Navigation("Provider_Packages");
