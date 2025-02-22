@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using teamProject.Models;
 using teamProject.Repository;
 using teamProject.viewModel;
@@ -9,15 +10,26 @@ namespace teamProject.Controllers
     public class ClientController : Controller
     {
         private readonly IRepositoryGeneric<Client> repo;
+        private readonly IRepositoryGeneric<myServiceProvider> serviceRepo;
+        private readonly IRepositoryGeneric<Offer> offerRepo;
+        private readonly IRepositoryGeneric<package> packageRepo;
+        private readonly IRepositoryGeneric<Central> centralRepo;
         private readonly IMapper mapper;
 
-        public ClientController(IRepositoryGeneric<Client> repo , IMapper mapper)
+        public ClientController(IRepositoryGeneric<Client> clientRepository , IMapper mapper ,
+            IRepositoryGeneric<myServiceProvider> serviceRepo , IRepositoryGeneric<Offer> offerRepo ,
+            IRepositoryGeneric<package> packageRepo , IRepositoryGeneric<Central> centralRepo )
         {
-            this.repo = repo;
+            this.repo = clientRepository;
             this.mapper = mapper;
+            this.serviceRepo = serviceRepo;
+            this.offerRepo = offerRepo;
+            this.packageRepo = packageRepo;
+            this.centralRepo = centralRepo;
         }
         public IActionResult Index()
         {
+
             return View("Index", repo.GetAll());
         }
 
@@ -35,7 +47,14 @@ namespace teamProject.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            ClientViewModel model = new ClientViewModel
+            {
+                myServiceProviders = new SelectList(serviceRepo.GetAll(), "Id", "Name"),
+                packages = new SelectList(packageRepo.GetAll(), "Id", "Name"),
+                Offer_Services = new SelectList(offerRepo.GetAll(), "Id", "Name"),
+                centrals = new SelectList(centralRepo.GetAll(), "Id", "Name")
+            };
+            return View(model);
         }
 
         [HttpPost]
