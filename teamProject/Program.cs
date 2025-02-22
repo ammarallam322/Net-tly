@@ -35,6 +35,7 @@ namespace teamProject
             builder.Services.AddScoped(typeof(IRepositoryGeneric<>), typeof(RepositoryGeneric<>));
             builder.Services.AddScoped(typeof(IRepositoryGeneric<Client>), typeof(RepositoryGeneric<Client>));
             builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+            builder.Services.AddScoped<IClientRepository, ClientRepository>();
 
 
 

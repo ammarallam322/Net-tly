@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace teamProject.Models
 {
@@ -19,7 +20,7 @@ namespace teamProject.Models
 
         //nav ?? virtual??
         //nav ?virtual?
-
+        [JsonIgnore]
         public virtual List<Provider_Package>? Provider_Packages { get; set; }
 
     }

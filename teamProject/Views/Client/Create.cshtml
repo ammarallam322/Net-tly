@@ -43,28 +43,24 @@
                 <input asp-for="SSN" class="form-control" />
                 <span asp-validation-for="SSN" class="text-danger"></span>
             </div>
+           
             <div class="form-group">
                 <label asp-for="Service_Id" class="control-label"></label>
-                <select asp-for="Service_Id" class="form-control" asp-items="Model?.myServiceProviders"></select>
+                <select asp-for="Service_Id" class="form-control" asp-items="Model?.myServiceProviders" id="serviceId"></select>
                 <span asp-validation-for="Service_Id" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Offer_Id" class="control-label"></label>
-                <select asp-for="Offer_Id" class="form-control" asp-items="Model?.Offer_Services"></select>
-                <span asp-validation-for="Offer_Id" class="text-danger"></span>
-            </div>
+                <label asp-for="Package_Id" class="control-label"></label>
+                <select asp-for="Package_Id" class="form-control" id="packageId">
+                    <option value="">-- Select Package --</option>
+                </select>
+                <span asp-validation-for="Package_Id" class="text-danger"></span>
 
             <div class="form-group">
                 <label asp-for="Central_Id" class="control-label"></label>
                 <select asp-for="Central_Id" class="form-control" asp-items="Model?.centrals"></select>
                 <span asp-validation-for="Central_Id" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Package_Id" class="control-label"></label>
-                <select asp-for="Package_Id" class="form-control" asp-items="Model?.packages"></select>
-                <span asp-validation-for="Package_Id" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -81,3 +77,35 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<a href="~/lib/jquery/dist/jquery.min.map">~/lib/jquery/dist/jquery.min.map</a>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+  
+    $(document).ready(function () {
+        $('#serviceId').change(function () {
+            var selectedServiceId = $(this).val();
+            console.log(selectedServiceId);
+            if (selectedServiceId) {
+                $.ajax({
+                    url: '@Url.Action("GetAllServicesPackage", "Client")', 
+                    type: 'GET',
+                    data: { id: selectedServiceId },
+                    success: function (data) {
+                        var $packageDropdown = $('#packageId');
+                        $packageDropdown.empty(); 
+                        $packageDropdown.append('<option value="">-- Select Package --</option>');
+                        $.each(data, function (index, item) {
+                            $packageDropdown.append('<option value="' + item.id + '">' + item.name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert('Error loading packages');
+                    }
+                });
+            } else {
+                $('#packageId').empty();
+                $('#packageId').append('<option value="">-- Select Package --</option>');
+            }
+        });
+    });
+</script>
