@@ -12,10 +12,9 @@ namespace teamProject.Models
         public string? Fax { get; set; }
         [Display(Name = "Manager")]
         [ForeignKey("Manager")]
-        public string Manager_Id { get; set; }
-        //public virtual List<IdentityUser>? Users { get; } = new List<IdentityUser>();
+        public string? Manager_Id { get; set; }
         public virtual List<Governerate>? Governerates { get; } = new List<Governerate>();
-        //public virtual IdentityUser? Manager { get; set; }
+        public virtual ApplicationUser? Manager { get; set; }
         public virtual BranchMobile? BranchMobiles { get; set; }
         public virtual BranchPhone? BranchPhones { get; set; }
     }

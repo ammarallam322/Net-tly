@@ -19,8 +19,7 @@ namespace teamProject.viewModel.Branch
         [MaxLength(25)]
         public string? Phone2 { get; set; }
         [Display(Name = "Manager")]
-        [ForeignKey("Manager")]
         public string ManagerName { get; set; }
-        public virtual List<IdentityUser> Users { get; } = new List<IdentityUser>();
+        //public virtual List<IdentityUser> Users { get; } = new List<IdentityUser>();
     }
 }

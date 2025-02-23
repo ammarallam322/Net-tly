@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using teamProject.Models;
 using teamProject.Repository.ImodelRepository;
 using teamProject.viewModel.Branch;
@@ -16,23 +18,78 @@ namespace teamProject.Controllers
             this.mapper = mapper;
         }
 
+        // Select ----------------------------------
         public IActionResult Index()
         {
             List<BranchPhMobViewModel> brnchModel = mapper.Map<List<BranchPhMobViewModel>>(branch.GetAll());
             return View("Index", brnchModel);
         }
 
+        // Edit ------------------------------------
         public IActionResult Details(int id)
         {
-            if (id == null)
+            BranchPhMobViewModel brnchModel = mapper.Map<BranchPhMobViewModel>(branch.GetById(id));
+
+            if (brnchModel == null)
                 return NotFound();
 
-            Branch brnch = branch.GetById(id);
+            return View("Details", brnchModel);
+        }
 
-            if (brnch == null)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(BranchPhMobViewModel branchVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var realBranch = branch.GetById(branchVM.Id);
+                if (realBranch == null)
+                    return NotFound();
+
+                mapper.Map(branchVM, realBranch);
+
+                branch.Update(realBranch);
+                branch.Save();
+
+                return RedirectToAction("Index");
+            }
+
+            return View("Details", branchVM);
+        }
+
+        // Add --------------------------------------
+        //public IActionResult Create()
+        //{
+        //    var users =  
+        //    return View("Create");
+        //}
+
+        // Delete -----------------------------------
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var br = branch.GetById(id);
+            if (br == null)
+            {
                 return NotFound();
+            }
+            return View("Delete", br);
+        }
 
-            return View("Details", brnch);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var br = branch.GetById(id);
+            if (br == null)
+            {
+                return NotFound();
+            }
+            
+            branch.Delete(id);
+            branch.Save();
+
+            return RedirectToAction("Index");
         }
 
 
