@@ -84,9 +84,9 @@ namespace teamProject.Controllers
             var services = clientRepo.GetServicePackages(id);
             return Json(services);
         }
-        public IActionResult GetAllOfferPackage(int id)
+        public IActionResult GetOfferService(int id)
         {
-            var offer = clientRepo.GetServicePackages(id);
+            var offer = clientRepo.GetOfferService(id);
             return Json(offer);
         }
         public IActionResult Edit(int id)
