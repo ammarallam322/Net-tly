@@ -2,13 +2,17 @@
 
 namespace teamProject.viewModel
 {
-    public class RegisterViewModel
+    public class UserViewModel
     {
-
-        public int Id { get; set; }
-         //adding email property
+        public string Id { get; set; }
 
         public string Name { get; set; }
+
+        public string Email { get; set; }
+
+        public string Address { get; set; }
+
+        public List<string> Roles { get; set; }
 
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -16,8 +20,6 @@ namespace teamProject.viewModel
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Password not match Confirm")]
         public string ConfirmPassword { get; set; }
-
-        public string Address { get; set; }
 
 
     }
