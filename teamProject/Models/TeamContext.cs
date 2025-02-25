@@ -49,8 +49,5 @@ namespace teamProject.Models
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<teamProject.viewModel.UserViewModel> UserViewModel { get; set; } = default!;
-        //public DbSet<teamProject.viewModel.RegisterViewModel> RegisterViewModel { get; set; } = default!;
-        //public DbSet<teamProject.viewModel.LoginViewModel> LoginViewModel { get; set; } = default!;
-        //public DbSet<teamProject.viewModel.UserViewModel> UserViewModel { get; set; } = default!;
     }
 }
