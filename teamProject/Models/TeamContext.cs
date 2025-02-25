@@ -18,6 +18,11 @@ namespace teamProject.Models
         public virtual DbSet<package> Packages { get; set; }
         public virtual DbSet<myServiceProvider> ServiceProviders { get; set; }
 
+        public virtual DbSet<Admin> Admin { get; set; }
+        public virtual DbSet<Employee> Employee { get; set; }
+
+
+
         //parameterless consructor that chain on base constructor
         public TeamContext() : base()
         {
@@ -43,7 +48,9 @@ namespace teamProject.Models
         {
             base.OnModelCreating(modelBuilder);
         }
-        public DbSet<teamProject.viewModel.RegisterViewModel> RegisterViewModel { get; set; } = default!;
-        public DbSet<teamProject.viewModel.LoginViewModel> LoginViewModel { get; set; } = default!;
+        public DbSet<teamProject.viewModel.UserViewModel> UserViewModel { get; set; } = default!;
+        //public DbSet<teamProject.viewModel.RegisterViewModel> RegisterViewModel { get; set; } = default!;
+        //public DbSet<teamProject.viewModel.LoginViewModel> LoginViewModel { get; set; } = default!;
+        //public DbSet<teamProject.viewModel.UserViewModel> UserViewModel { get; set; } = default!;
     }
 }
