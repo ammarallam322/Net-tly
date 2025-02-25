@@ -528,7 +528,7 @@ namespace teamProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Email");
                     b.HasKey("Id");
 
                     b.ToTable("LoginViewModel");
