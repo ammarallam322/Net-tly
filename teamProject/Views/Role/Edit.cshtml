@@ -1,0 +1,23 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+@if (ViewBag.ErrorMessage !=null)
+{
+    <div class="alert alert-danger"> @ViewBag.ErrorMessage</div>
+}
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <div class="form-group">
+        <label>Name Role</label>
+        <input type="text" name="roleName" value="@Model.Name" class="form-control" required />
+    </div>
+    <button  type="submit" class="btn btn-warning mt-2">Save</button>
+    <a asp-action="Index" class="btn btn-secondary mt-2">Back To List</a>
+</form>
+
