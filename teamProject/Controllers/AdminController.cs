@@ -148,7 +148,7 @@ namespace teamProject.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    
+                    var x = 0;
                    
                         throw;
                     
