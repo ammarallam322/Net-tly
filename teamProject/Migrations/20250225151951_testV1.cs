@@ -5,7 +5,7 @@
 namespace teamProject.Migrations
 {
     /// <inheritdoc />
-    public partial class amm1 : Migration
+    public partial class testV1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

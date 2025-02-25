@@ -12,8 +12,8 @@ using teamProject.Models;
 namespace teamProject.Migrations
 {
     [DbContext(typeof(TeamContext))]
-    [Migration("20250224180609_identity")]
-    partial class identity
+    [Migration("20250225151951_testV1")]
+    partial class testV1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -254,14 +254,15 @@ namespace teamProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Manager_Id")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Manager_Id");
 
                     b.ToTable("Branches");
                 });
@@ -517,59 +518,6 @@ namespace teamProject.Migrations
                     b.ToTable("Packages");
                 });
 
-            modelBuilder.Entity("teamProject.viewModel.LoginViewModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("RememberMe")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LoginViewModel");
-                });
-
-            modelBuilder.Entity("teamProject.viewModel.RegisterViewModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ConfirmPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RegisterViewModel");
-                });
-
             modelBuilder.Entity("teamProject.viewModel.UserViewModel", b =>
                 {
                     b.Property<string>("Id")
@@ -579,11 +527,19 @@ namespace teamProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ConfirmPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -659,6 +615,15 @@ namespace teamProject.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("teamProject.Models.Branch", b =>
+                {
+                    b.HasOne("teamProject.Models.ApplicationUser", "Manager")
+                        .WithMany()
+                        .HasForeignKey("Manager_Id");
+
+                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("teamProject.Models.BranchMobile", b =>
