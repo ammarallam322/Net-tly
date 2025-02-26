@@ -1,4 +1,5 @@
-﻿using teamProject.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using teamProject.Models;
 
 namespace teamProject.viewModel
 {
@@ -20,5 +21,7 @@ namespace teamProject.viewModel
         //nav ?virtual?
 
         public virtual List<Provider_Package>? Provider_Packages { get; set; }
+        public int service_Id { get; set; }
+        public virtual SelectList? MyServiceProviders { get; set; }
     }
 }
