@@ -60,7 +60,7 @@ namespace teamProject.Controllers
           
             return View("Index",All());
         }
-
+        //details of offer
         public async Task<IActionResult> Details(int id)
         {
             var offerRepo = offerRepository.GetById(id);
