@@ -169,6 +169,9 @@ namespace teamProject.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("BranchId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -219,6 +222,8 @@ namespace teamProject.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -515,40 +520,7 @@ namespace teamProject.Migrations
                     b.ToTable("Packages");
                 });
 
-            modelBuilder.Entity("teamProject.viewModel.UserViewModel", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ConfirmPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.PrimitiveCollection<string>("Roles")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserViewModel");
-                });
-
+           
             modelBuilder.Entity("teamProject.Models.Admin", b =>
                 {
                     b.HasBaseType("teamProject.Models.ApplicationUser");
@@ -614,12 +586,22 @@ namespace teamProject.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("teamProject.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("teamProject.Models.Branch", "Branch")
+                        .WithMany("Employees")
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Branch");
+                });
+
             modelBuilder.Entity("teamProject.Models.Branch", b =>
                 {
                     b.HasOne("teamProject.Models.ApplicationUser", "Manager")
-                        .WithMany()
-                        .HasForeignKey("Manager_Id");
-
+                        .WithMany("ManagedBranches")
+                        .HasForeignKey("Manager_Id")
+                        .OnDelete(DeleteBehavior.SetNull);
                     b.Navigation("Manager");
                 });
 
@@ -724,11 +706,18 @@ namespace teamProject.Migrations
                     b.Navigation("ServiceProvider");
                 });
 
+            modelBuilder.Entity("teamProject.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("ManagedBranches");
+                });
+
             modelBuilder.Entity("teamProject.Models.Branch", b =>
                 {
                     b.Navigation("BranchMobiles");
 
                     b.Navigation("BranchPhones");
+
+                    b.Navigation("Employees");
 
                     b.Navigation("Governerates");
                 });

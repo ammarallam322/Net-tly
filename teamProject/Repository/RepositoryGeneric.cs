@@ -17,7 +17,7 @@ namespace teamProject.Repository
             this.context = context;
           
         }
-      
+
 
         public List<TEntity> GetAll()
         {

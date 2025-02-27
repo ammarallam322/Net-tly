@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using teamProject.Models;
 
 namespace teamProject.viewModel
 {
     public class UserViewModel
     {
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         public string Name { get; set; }
 
@@ -12,7 +14,10 @@ namespace teamProject.viewModel
 
         public string Address { get; set; }
 
-        public List<string> Roles { get; set; }
+
+        public string SelectedRole { get; set; } // Added
+
+        public List<string>? Roles { get; set; } // Changed to List<string>
 
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -20,7 +25,6 @@ namespace teamProject.viewModel
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Password not match Confirm")]
         public string ConfirmPassword { get; set; }
-
-
     }
+
 }

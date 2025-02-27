@@ -1,7 +1,7 @@
-﻿@model teamProject.viewModel.Branch.BranchEditViewModel
+﻿@model teamProject.viewModel.Branch.BranchForCreateViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Create";
     var EmpItems = Model.Employees != null ? new SelectList(Model.Employees, "Id", "UserName") : new SelectList(new List<ApplicationUser>(), "Id", "UserName");
 }
 
@@ -10,10 +10,10 @@
         <div class="row">
             <table class="table table-hover">
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <form method="post" asp-controller="branch" asp-action="Edit" asp-route-Id="@Model.Id">
+                <form asp-action="createConfirm">
                 <thead class="headerLabel">
                     <tr class="p-3 border-bottom text-center">
-                        <th colspan="2">Edit Branch</th>
+                        <th colspan="2">Add Branch</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,8 +79,8 @@
                 <tfoot>
                     <tr class="p-3 border-top">
                         <td><a asp-action="Index"><i class="bi bi-skip-backward-fill"></i></a></td>
-                        <td><input type="submit" value="Save" class="btn btn-primary createButton" /></td>
-                    </tr>
+				        <td><input type="submit" value="Create" class="btn btn-primary createButton" /></td>
+			        </tr>
                 </tfoot>
                 </form>
             </table>
@@ -89,7 +89,6 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+

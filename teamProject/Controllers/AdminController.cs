@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,9 +14,10 @@ using teamProject.viewModel;
 
 namespace teamProject.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-
+     
         //ref from usermanger
 
         private readonly UserManager<ApplicationUser> userManager;
@@ -31,7 +34,7 @@ namespace teamProject.Controllers
             this.roleManager = roleManager;
         }
 
-       
+
         public async Task<IActionResult> Index()
         {
             var users = await userManager.Users.ToListAsync();
@@ -41,14 +44,19 @@ namespace teamProject.Controllers
             foreach (var user in users)
             {
                 var uservm = mapper.Map<UserViewModel>(user);
+                if (user!=null)
+                {
+                    var roles = await userManager.GetRolesAsync(user);
+                    uservm.SelectedRole = roles.FirstOrDefault();
 
-                uservm.Roles = (await userManager.GetRolesAsync(user)).ToList();
-
-                usersVM.Add(uservm);
+                    usersVM.Add(uservm);
+                }
+                
             }
 
             return View(usersVM);
         }
+
 
         public async Task<IActionResult> Details(string id)
         {
@@ -59,7 +67,7 @@ namespace teamProject.Controllers
                 {
                     //mapping 
                     var uservm = mapper.Map<UserViewModel>(user);
-                    uservm.Roles = (await userManager.GetRolesAsync(user)).ToList();
+                    uservm.Roles = (List<string>)await userManager.GetRolesAsync(user);
 
                     return View(uservm);
 
@@ -70,7 +78,9 @@ namespace teamProject.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            UserViewModel user = new UserViewModel();
+            user.Roles = roleManager.Roles.Select(r => r.Name).ToList();
+            return View(user);
         }
 
         [HttpPost]
@@ -81,15 +91,23 @@ namespace teamProject.Controllers
             {
                 return View(userViewModel);
             }
-
+            var existingEmail = await userManager.FindByEmailAsync(userViewModel.Email);
+            if (existingEmail != null)
+            {
+                ModelState.AddModelError("", "Username is already taken.");
+                return View("Register", userViewModel);
+            }
             var user = new ApplicationUser
             {
                 UserName = userViewModel.Name,
                 Email = userViewModel.Email,
+                PasswordHash = userViewModel.Password,
                 Address = userViewModel.Address
             };
+          
 
             var result = await userManager.CreateAsync(user, userViewModel.Password);
+            var AddUserToRole = await userManager.AddToRoleAsync(user, userViewModel.SelectedRole);
 
             if (result.Succeeded)
             {
@@ -165,8 +183,7 @@ namespace teamProject.Controllers
                 return NotFound();
             }
 
-            var user = await userManager.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var user = await userManager.Users.FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
                 return NotFound();
@@ -185,12 +202,34 @@ namespace teamProject.Controllers
             var user = await userManager.FindByIdAsync(id);
             if (user != null)
             {
-               await userManager.DeleteAsync(user);
-            return RedirectToAction(nameof(Index));
+                // Remove the roles associated with the user
+                var rolesForUser = await userManager.GetRolesAsync(user);
+                if (rolesForUser.Any())
+                {
+                    var result = await userManager.RemoveFromRolesAsync(user, rolesForUser);
+                    if (!result.Succeeded)
+                    {
+                        // Handle failure if necessary
+                        ModelState.AddModelError("", "Error removing user roles.");
+                        return View(user);
+                    }
+                }
+
+                // Now delete the user
+                var deleteResult = await userManager.DeleteAsync(user);
+                if (deleteResult.Succeeded)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                // Handle failure if the user deletion didn't succeed
+                ModelState.AddModelError("", "Error deleting user.");
+                return View(user);
             }
             return NotFound();
         }
 
-    
+
+
     }
 }

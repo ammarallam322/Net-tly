@@ -72,7 +72,7 @@ namespace teamProject
             // setting  login as default route
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Account}/{action=Login}")
+                pattern: "{controller=branch}/{action=index}")
                 .WithStaticAssets();
 
             app.Run();
