@@ -8,7 +8,7 @@ namespace teamProject.MapConfig
     {
         public PackageConfig()
         {
-            CreateMap<package, PackagesViewModel>().AfterMap((src, dist) => { }).ReverseMap();
+                CreateMap<package, PackagesViewModel>().AfterMap((src, dist) => { }).ReverseMap();
 
         }
 

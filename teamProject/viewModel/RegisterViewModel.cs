@@ -6,9 +6,13 @@ namespace teamProject.viewModel
     {
 
         public int Id { get; set; }
-
+         //adding email property
 
         public string Name { get; set; }
+
+        [EmailAddress]
+        public string Email { get; set; }
+
 
         [DataType(DataType.Password)]
         public string Password { get; set; }

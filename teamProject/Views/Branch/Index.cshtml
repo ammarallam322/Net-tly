@@ -4,54 +4,121 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Branches</h2>
+<div class="myMainOwnContaier">
+    <div class="container myOwnContaier rounded p-5">
+        <div class="row flex-nowrap justify-content-between branchHeader">  
+            <h2 class="fs-1 col-sm-6 ">Branches</h2>
+            <h4 class="fs-2 col-sm-6 text-end">All Branches: @ViewBag.TotalCount</h4>
+        </div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Moblie 1</th>
-            <th>Mobile 2</th>
-            <th>Phone 1</th>
-            <th>Phone 2</th>
-            <th>Fax</th>
-            <th>Manager</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model)
-        {
-                <tr>
-                    <td>@product.Name</td>
-                    <td>@product.Address</td>
-                    <td>@product.Mobile1</td>
-                    <td>@product.Mobile2</td>
-                    <td>@product.Phone1</td>
-                    <td>@product.Phone2</td>
-                    <td>@product.Fax</td>
-                    <td>@product.ManagerName</td>
-                    <td>
-                        <a asp-controller="Branch" asp-action="Edit" asp-route-Id="@product.Id" class="btn btn-primary" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                    </td>
-                    <td>
-                             <a asp-controller="Branch" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-danger" title="Delete">
-                            <i class="fas fa-trash"></i>
-                         </a>
-                    </td>
-                </tr>
-        }
-    </tbody>
-</table>
+        <div class="row">
+            <a asp-action="Create" asp-controller="branch" class="my-3 btn custom-btn btn-3"><span>+ Add Branch</span></a>
+        </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+        <div class="row ">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="p-3 border-top border-bottom pt-3 pt-3">
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Fax</th>
+                        <th>Moblie 1</th>
+                        <th>Mobile 2</th>
+                        <th>Phone 1</th>
+                        <th>Phone 2</th>
+                        <th>Manager</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="branches-body"></tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination d-flex justify-content-center">
+                <li class="page-item">
+                    <button class="page-link" id="prevPage" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link" id="nextPage" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </button>
+                </li>
+           </ul>
+        </nav>
+    </div>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>    
+        let currentPage = 1;
+        const pageSize = 5;
+
+        function loadBranches(page) {
+            $.ajax({
+                url: `/Branch/Get?page=${page}&pageSize=${pageSize}`,
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    const tbody = $("#branches-body");
+                    tbody.empty();
+
+                    if (!response.data || response.data.length === 0) {
+                        tbody.append("<tr><td colspan='9' class='text-center'>No branches found.</td></tr>");
+                        return;
+                    }
+                
+                    var detailsUrlBase = '@Url.Action("Details", "Branch")';
+                    response.data.forEach(branch => {
+					let detailsUrl = `${detailsUrlBase}?id=${branch.id}`;
+                    let row = `
+                        <tr class="p-3 border-top border-bottom pt-3">
+                            <td>${branch.name}</td>
+                            <td>${branch.address}</td>
+                            <td>${branch.fax || '-'}</td>
+                            <td>${branch.mobile1 || '-'}</td>
+                            <td>${branch.mobile2 || '-'}</td>
+                            <td>${branch.phone1 || '-'}</td>
+                            <td>${branch.phone2 || '-'}</td>
+                            <td>${branch.managerName || 'N/A'}</td>
+                            <td class="text-center"> 
+                                    <a href="${detailsUrl}" class="btn btn-primary" title="Details">
+                                    <i class="fas fa-edit"></i> 
+                                </a> 
+                                <button asp-controller="branch" class="btn btn-danger mx-2" onclick="confirmDelete(${branch.id})"> 
+                                    <i class="fas fa-trash"></i> 
+                                </button> 
+                            </td> 
+                        </tr>`;
+                    tbody.append(row);
+                });
+                $("#prevPage").prop("disabled", response.page === 1);
+                $("#nextPage").prop("disabled", response.page >= response.totalPages);
+
+                    currentPage = response.page;
+                },
+                error: function (err) {
+                    console.error("Error loading branches:", err);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            loadBranches(currentPage);
+
+            $("#prevPage").click(function () {
+                if (currentPage > 1) {
+                    loadBranches(currentPage - 1);
+                }
+            });
+
+            $("#nextPage").click(function () {
+                loadBranches(currentPage + 1);
+            });
+        });
+    </script>
 }

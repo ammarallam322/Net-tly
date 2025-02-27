@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using teamProject.Models;
 using teamProject.Repository;
@@ -10,11 +11,16 @@ namespace teamProject.Controllers
     public class PackagesController : Controller
     {
         IRepositoryGeneric<package> repo;
+        private readonly IRepositoryGeneric<Provider_Package> provider_Package;
+        private readonly IRepositoryGeneric<myServiceProvider> servRepo;
+
         //ref fom mapconfig
         IMapper mapper;
-        public PackagesController(IRepositoryGeneric<package> repo , IMapper mapper)
+        public PackagesController(IRepositoryGeneric<package> repo, IRepositoryGeneric<Provider_Package> Provider_Package, IRepositoryGeneric<myServiceProvider> ServRepo, IMapper mapper)
         {
             this.repo = repo;
+            provider_Package = Provider_Package;
+            servRepo = ServRepo;
             this.mapper = mapper;
         }
 
@@ -42,7 +48,10 @@ namespace teamProject.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            
+            var package = new PackagesViewModel();
+            package.MyServiceProviders = new SelectList(servRepo.GetAll(), "Id", "Name");
+            return View(package);
         }
 
         [HttpPost]
@@ -56,6 +65,8 @@ namespace teamProject.Controllers
 
                 repo.Add(package);
                 repo.Save();
+                provider_Package.Add(new Provider_Package { Package_Id = package.Id, provider_Id = packageVM.service_Id });
+                provider_Package.Save();
                 return RedirectToAction(nameof(Index));
             }
             return View(packageVM);

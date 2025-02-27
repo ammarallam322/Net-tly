@@ -1,0 +1,12 @@
+﻿@model Branch
+
+<h3>Are You Sure You Want To Delete ?</h3>
+<p><strong>@Model.Name</strong></p>
+
+<form asp-action="DeleteConfirmed">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+

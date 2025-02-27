@@ -17,6 +17,11 @@ namespace teamProject.Models
         public virtual DbSet<Offer> Offers { get; set; }
         public virtual DbSet<package> Packages { get; set; }
         public virtual DbSet<myServiceProvider> ServiceProviders { get; set; }
+        public virtual DbSet<Receipt> Receipts { get; set; }
+        public virtual DbSet<Admin> Admin { get; set; }
+        public virtual DbSet<Employee> Employee { get; set; }
+
+
 
         //parameterless consructor that chain on base constructor
         public TeamContext() : base()
@@ -42,8 +47,18 @@ namespace teamProject.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Branch>()
+           .HasOne(b => b.Manager)
+           .WithMany(m => m.ManagedBranches) 
+           .HasForeignKey(b => b.Manager_Id)
+           .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<ApplicationUser>()
+            .HasOne(b => b.Branch)
+            .WithMany(u => u.Employees)
+            .HasForeignKey(u => u.BranchId)
+            .OnDelete(DeleteBehavior.NoAction);
         }
-        public DbSet<teamProject.viewModel.RegisterViewModel> RegisterViewModel { get; set; } = default!;
-        public DbSet<teamProject.viewModel.LoginViewModel> LoginViewModel { get; set; } = default!;
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using teamProject.Models;
 using teamProject.Repository;
+using teamProject.Repository.ImodelRepository;
 using teamProject.viewModel;
 
 namespace teamProject.Controllers
@@ -14,11 +15,12 @@ namespace teamProject.Controllers
         private readonly IRepositoryGeneric<Offer> offerRepo;
         private readonly IRepositoryGeneric<package> packageRepo;
         private readonly IRepositoryGeneric<Central> centralRepo;
+        private readonly IClientRepository clientRepo;
         private readonly IMapper mapper;
 
-        public ClientController(IRepositoryGeneric<Client> clientRepository , IMapper mapper ,
-            IRepositoryGeneric<myServiceProvider> serviceRepo , IRepositoryGeneric<Offer> offerRepo ,
-            IRepositoryGeneric<package> packageRepo , IRepositoryGeneric<Central> centralRepo )
+        public ClientController(IRepositoryGeneric<Client> clientRepository, IMapper mapper,
+            IRepositoryGeneric<myServiceProvider> serviceRepo, IRepositoryGeneric<Offer> offerRepo,
+            IRepositoryGeneric<package> packageRepo, IRepositoryGeneric<Central> centralRepo, IClientRepository clientRepo)
         {
             this.clientRepository = clientRepository;
             this.mapper = mapper;
@@ -26,6 +28,7 @@ namespace teamProject.Controllers
             this.offerRepo = offerRepo;
             this.packageRepo = packageRepo;
             this.centralRepo = centralRepo;
+            this.clientRepo = clientRepo;
         }
         public IActionResult Index()
         {
@@ -76,9 +79,18 @@ namespace teamProject.Controllers
             };
             return View(model);
         }
-
+        public IActionResult GetAllServicesPackage(int id)
+        {
+            var services = clientRepo.GetServicePackages(id);
+            return Json(services);
+        }
+        public IActionResult GetOfferService(int id)
+        {
+            var offer = clientRepo.GetOfferService(id);
+            return Json(offer);
+        }
         public IActionResult Edit(int id)
-        { 
+        {
             var package = clientRepository.GetById(id);
             ClientViewModel clientVM = mapper.Map<ClientViewModel>(package);
             clientVM = new ClientViewModel
@@ -143,7 +155,7 @@ namespace teamProject.Controllers
             }
             catch (Exception ex)
             {
-                return View(package); 
+                return View(package);
             }
             return RedirectToAction(nameof(Index));
         }

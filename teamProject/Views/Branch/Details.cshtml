@@ -1,0 +1,95 @@
+﻿@model teamProject.viewModel.Branch.BranchEditViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    var EmpItems = Model.Employees != null ? new SelectList(Model.Employees, "Id", "UserName") : new SelectList(new List<ApplicationUser>(), "Id", "UserName");
+}
+
+<div class="myMainOwnContaier">
+    <div class="container myOwnContaier rounded p-5">
+        <div class="row">
+            <table class="table table-hover">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form method="post" asp-controller="branch" asp-action="Edit" asp-route-Id="@Model.Id">
+                <thead class="headerLabel">
+                    <tr class="p-3 border-bottom text-center">
+                        <th colspan="2">Edit Branch</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Name" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Address" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Fax" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Fax" class="form-control" />
+                            <span asp-validation-for="Fax" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Mobile1" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Mobile1" class="form-control" />
+                            <span asp-validation-for="Mobile1" class="text-danger"></span>
+                        </td>
+                    </tr>    
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Mobile2" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Mobile2" class="form-control" />
+                            <span asp-validation-for="Mobile2" class="text-danger"></span>
+                        </td>
+                    </tr> 
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Phone1" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Phone1" class="form-control" />
+                            <span asp-validation-for="Phone1" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Phone2" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Phone2" class="form-control" />
+                            <span asp-validation-for="Phone2" class="text-danger"></span>
+                        </td>
+                    </tr>   
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Manager_Id" class="control-label inputLabel"></label></td>
+                        <td>
+                            <select asp-for="Manager_Id" asp-items="EmpItems" class="form form-control">
+                                <option value="0">--Select Department--</option>
+                            </select>
+                            <span asp-validation-for="Manager_Id" class="text-danger"></span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="p-3 border-top">
+                        <td><a asp-action="Index"><i class="bi bi-skip-backward-fill"></i></a></td>
+                        <td><input type="submit" value="Save" class="btn btn-primary createButton" /></td>
+                    </tr>
+                </tfoot>
+                </form>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
