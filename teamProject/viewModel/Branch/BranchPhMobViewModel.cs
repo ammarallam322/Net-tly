@@ -20,6 +20,5 @@ namespace teamProject.viewModel.Branch
         public string? Phone2 { get; set; }
         [Display(Name = "Manager")]
         public string ManagerName { get; set; }
-        //public virtual List<IdentityUser> Users { get; } = new List<IdentityUser>();
     }
 }

@@ -169,6 +169,9 @@ namespace teamProject.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("BranchId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -215,6 +218,8 @@ namespace teamProject.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BranchId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -242,7 +247,6 @@ namespace teamProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Manager_Id")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -253,7 +257,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Manager_Id");
 
-                    b.ToTable("Branches", (string)null);
+                    b.ToTable("Branches");
                 });
 
             modelBuilder.Entity("teamProject.Models.BranchMobile", b =>
@@ -280,7 +284,7 @@ namespace teamProject.Migrations
                     b.HasIndex("Br_Id")
                         .IsUnique();
 
-                    b.ToTable("BrancheMoblies", (string)null);
+                    b.ToTable("BrancheMoblies");
                 });
 
             modelBuilder.Entity("teamProject.Models.BranchPhone", b =>
@@ -307,7 +311,7 @@ namespace teamProject.Migrations
                     b.HasIndex("Br_Id")
                         .IsUnique();
 
-                    b.ToTable("BranchePhones", (string)null);
+                    b.ToTable("BranchePhones");
                 });
 
             modelBuilder.Entity("teamProject.Models.Central", b =>
@@ -611,13 +615,22 @@ namespace teamProject.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("teamProject.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("teamProject.Models.Branch", "Branch")
+                        .WithMany("Employees")
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Branch");
+                });
+
             modelBuilder.Entity("teamProject.Models.Branch", b =>
                 {
                     b.HasOne("teamProject.Models.ApplicationUser", "Manager")
-                        .WithMany()
+                        .WithMany("ManagedBranches")
                         .HasForeignKey("Manager_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Manager");
                 });
@@ -723,11 +736,18 @@ namespace teamProject.Migrations
                     b.Navigation("ServiceProvider");
                 });
 
+            modelBuilder.Entity("teamProject.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("ManagedBranches");
+                });
+
             modelBuilder.Entity("teamProject.Models.Branch", b =>
                 {
                     b.Navigation("BranchMobiles");
 
                     b.Navigation("BranchPhones");
+
+                    b.Navigation("Employees");
 
                     b.Navigation("Governerates");
                 });

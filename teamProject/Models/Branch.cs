@@ -13,8 +13,9 @@ namespace teamProject.Models
         [Display(Name = "Manager")]
         [ForeignKey("Manager")]
         public string? Manager_Id { get; set; }
-        public virtual List<Governerate>? Governerates { get; } = new List<Governerate>();
         public virtual ApplicationUser? Manager { get; set; }
+        public virtual List<ApplicationUser>? Employees { get; } = new List<ApplicationUser>();
+        public virtual List<Governerate>? Governerates { get; } = new List<Governerate>();
         public virtual BranchMobile? BranchMobiles { get; set; }
         public virtual BranchPhone? BranchPhones { get; set; }
     }
