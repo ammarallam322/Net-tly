@@ -6,7 +6,7 @@ namespace teamProject.viewModel
     {
 
         public int Id { get; set; }
-
+         //adding email property
 
         public string Name { get; set; }
 

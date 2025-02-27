@@ -176,6 +176,11 @@ namespace teamProject.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -229,6 +234,10 @@ namespace teamProject.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("teamProject.Models.Branch", b =>
@@ -333,7 +342,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Gov_Id");
 
-                    b.ToTable("Centrals", (string)null);
+                    b.ToTable("Centrals");
                 });
 
             modelBuilder.Entity("teamProject.Models.Client", b =>
@@ -393,7 +402,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Service_Id");
 
-                    b.ToTable("Clients", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("teamProject.Models.Governerate", b =>
@@ -420,7 +429,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Branch_Id");
 
-                    b.ToTable("Governerates", (string)null);
+                    b.ToTable("Governerates");
                 });
 
             modelBuilder.Entity("teamProject.Models.Offer", b =>
@@ -442,7 +451,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Servuce_Id");
 
-                    b.ToTable("Offers", (string)null);
+                    b.ToTable("Offers");
                 });
 
             modelBuilder.Entity("teamProject.Models.Provider_Package", b =>
@@ -457,7 +466,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("provider_Id");
 
-                    b.ToTable("Provider_Package", (string)null);
+                    b.ToTable("Provider_Package");
                 });
 
             modelBuilder.Entity("teamProject.Models.myServiceProvider", b =>
@@ -477,7 +486,7 @@ namespace teamProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServiceProviders", (string)null);
+                    b.ToTable("ServiceProviders");
                 });
 
             modelBuilder.Entity("teamProject.Models.package", b =>
@@ -508,46 +517,23 @@ namespace teamProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Packages", (string)null);
+                    b.ToTable("Packages");
                 });
 
-            modelBuilder.Entity("teamProject.viewModel.LoginViewModel", b =>
+            modelBuilder.Entity("teamProject.viewModel.UserViewModel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("RememberMe")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LoginViewModel", (string)null);
-                });
-
-            modelBuilder.Entity("teamProject.viewModel.RegisterViewModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConfirmPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -559,9 +545,27 @@ namespace teamProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.PrimitiveCollection<string>("Roles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("RegisterViewModel", (string)null);
+                    b.ToTable("UserViewModel");
+                });
+
+            modelBuilder.Entity("teamProject.Models.Admin", b =>
+                {
+                    b.HasBaseType("teamProject.Models.ApplicationUser");
+
+                    b.HasDiscriminator().HasValue("Admin");
+                });
+
+            modelBuilder.Entity("teamProject.Models.Employee", b =>
+                {
+                    b.HasBaseType("teamProject.Models.ApplicationUser");
+
+                    b.HasDiscriminator().HasValue("Employee");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -631,6 +635,8 @@ namespace teamProject.Migrations
                         .WithMany("ManagedBranches")
                         .HasForeignKey("Manager_Id")
                         .OnDelete(DeleteBehavior.SetNull);
+                        .IsRequired();
+                        .IsRequired();
 
                     b.Navigation("Manager");
                 });
