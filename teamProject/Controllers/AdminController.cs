@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -31,7 +32,7 @@ namespace teamProject.Controllers
             this.roleManager = roleManager;
         }
 
-       
+
         public async Task<IActionResult> Index()
         {
             var users = await userManager.Users.ToListAsync();
@@ -41,14 +42,19 @@ namespace teamProject.Controllers
             foreach (var user in users)
             {
                 var uservm = mapper.Map<UserViewModel>(user);
+                if (user!=null)
+                {
+                    var roles = await userManager.GetRolesAsync(user);
+                    uservm.SelectedRole = roles.FirstOrDefault();
 
-                uservm.Roles = (await userManager.GetRolesAsync(user)).ToList();
-
-                usersVM.Add(uservm);
+                    usersVM.Add(uservm);
+                }
+                
             }
 
             return View(usersVM);
         }
+
 
         public async Task<IActionResult> Details(string id)
         {
@@ -59,7 +65,7 @@ namespace teamProject.Controllers
                 {
                     //mapping 
                     var uservm = mapper.Map<UserViewModel>(user);
-                    uservm.Roles = (await userManager.GetRolesAsync(user)).ToList();
+                    uservm.Roles = (List<string>)await userManager.GetRolesAsync(user);
 
                     return View(uservm);
 
@@ -70,7 +76,9 @@ namespace teamProject.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            UserViewModel user = new UserViewModel();
+            user.Roles = roleManager.Roles.Select(r => r.Name).ToList();
+            return View(user);
         }
 
         [HttpPost]
@@ -88,8 +96,10 @@ namespace teamProject.Controllers
                 Email = userViewModel.Email,
                 Address = userViewModel.Address
             };
+          
 
             var result = await userManager.CreateAsync(user, userViewModel.Password);
+            var AddUserToRole = await userManager.AddToRoleAsync(user, userViewModel.SelectedRole);
 
             if (result.Succeeded)
             {
