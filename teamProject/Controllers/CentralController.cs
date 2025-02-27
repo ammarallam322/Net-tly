@@ -57,7 +57,6 @@ namespace teamProject.Controllers
             return View("Index",All());
         }
 
-        
         public IActionResult Create()
         {
             var model = new CentralGovernmentViewModel
@@ -70,8 +69,6 @@ namespace teamProject.Controllers
             };
             return View(model);
         }
-
-
 
         [HttpPost]
         public IActionResult SaveCreate(CentralGovernmentViewModel model)

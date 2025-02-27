@@ -34,7 +34,7 @@ namespace teamProject.Models
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
 
-        //    optionsBuilder.UseSqlServer("Server=DESKTOP-PQBVQ61\\SQLEXPRESS;Database=TeamMVCProject;Trusted_Connection=True; TrustServerCertificate=True;");
+        //    optionsBuilder.UseSqlServer("Server=DESKTOP-FRBH0T7\\SQLEXPRESS;Database=TeamMVCProject;Trusted_Connection=True; TrustServerCertificate=True;");
 
         //}
 

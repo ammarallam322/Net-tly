@@ -3,16 +3,12 @@
 namespace teamProject.Models
 {
     public class Offer
-    {
-        public int Id { get; set; }
-
+    {   public int Id { get; set; }
         public string Name { get; set; }
-
-
+        public int offerduration {  get; set; }
         //nav ?? virtual??
-        public virtual myServiceProvider ServiceProvider { get; set; }
+        public virtual myServiceProvider? ServiceProvider { get; set; }
         [ForeignKey(nameof(ServiceProvider))]
         public int? Servuce_Id { get; set; }
-
     }
 }
