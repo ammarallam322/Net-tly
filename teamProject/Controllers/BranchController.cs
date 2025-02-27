@@ -116,7 +116,7 @@ namespace teamProject.Controllers
                 try
                 {
                     branch.Update(branchEntity);
-                branch.Save();
+                    branch.Save();
                 }
                 catch (Exception ex)
                 {
@@ -154,14 +154,14 @@ namespace teamProject.Controllers
                 branch.Add(brnch);
 
                 BranchMobile brnMob = new BranchMobile()
-        {
+                {
                     Br_Mob1 = branchFromReq.Mobile1,
                     Br_Mob2 = branchFromReq.Mobile2
                 };
                 brnch.BranchMobiles = brnMob;
 
                 BranchPhone brnPhn = new BranchPhone()
-            {
+                {
                     Br_Ph1 = branchFromReq.Phone1,
                     Br_Ph2 = branchFromReq.Phone2
                 };
@@ -169,7 +169,7 @@ namespace teamProject.Controllers
 
                 branch.Save();
                 return RedirectToAction("Index");
-        }
+            }
 
             var emps = await user.Users.ToListAsync() ?? new List<ApplicationUser>();
             branchFromReq.Employees = emps;

@@ -520,7 +520,7 @@ namespace teamProject.Migrations
                     b.ToTable("Packages");
                 });
 
-
+           
             modelBuilder.Entity("teamProject.Models.Admin", b =>
                 {
                     b.HasBaseType("teamProject.Models.ApplicationUser");
