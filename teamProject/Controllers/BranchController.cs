@@ -108,10 +108,22 @@ namespace teamProject.Controllers
 
                 branchEntity.BranchMobiles ??= new BranchMobile { Br_Id = id };
                 branchEntity.BranchPhones ??= new BranchPhone { Br_Id = id };
-                branchEntity.BranchMobiles.Br_Mob1 = branchFromReq.Mobile1;
-                branchEntity.BranchMobiles.Br_Mob2 = branchFromReq.Mobile2;
-                branchEntity.BranchPhones.Br_Ph1 = branchFromReq.Phone1;
-                branchEntity.BranchPhones.Br_Ph2 = branchFromReq.Phone2;
+
+                BranchMobile brnMob = new BranchMobile()
+                {
+                    Br_Id = id,
+                    Br_Mob1 = branchFromReq.Mobile1,
+                    Br_Mob2 = branchFromReq.Mobile2
+                };
+                branchEntity.BranchMobiles = brnMob;
+
+                BranchPhone brnPhn = new BranchPhone()
+                {
+                    Br_Id = id,
+                    Br_Ph1 = branchFromReq.Phone1,
+                    Br_Ph2 = branchFromReq.Phone2
+                };
+                branchEntity.BranchPhones = brnPhn;
 
                 try
                 {
@@ -133,7 +145,6 @@ namespace teamProject.Controllers
         // Add --------------------------------------
         public async Task<IActionResult> Create()
         {
-
             var emps = await user.Users.ToListAsync() ?? new List<ApplicationUser>();
             BranchForCreateViewModel brnch = new BranchForCreateViewModel()
             {
@@ -191,7 +202,5 @@ namespace teamProject.Controllers
 
             return RedirectToAction("Index");
         }
-
-
     }
 }

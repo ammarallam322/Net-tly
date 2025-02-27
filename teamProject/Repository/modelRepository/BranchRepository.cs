@@ -40,9 +40,9 @@ namespace teamProject.Repository
                 Name = b.Name,
                 Address = b.Address,
                 Mobile1 = b.BranchMobiles.Br_Mob1,
-                Mobile2 = b.BranchMobiles.Br_Mob1,
+                Mobile2 = b.BranchMobiles.Br_Mob2,
                 Phone1 = b.BranchPhones.Br_Ph1,
-                Phone2 = b.BranchPhones.Br_Ph1,
+                Phone2 = b.BranchPhones.Br_Ph2,
                 Fax = b.Fax,
                 ManagerName = b.Manager != null ? b.Manager.UserName : "N/A"
             });

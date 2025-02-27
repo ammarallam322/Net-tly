@@ -23,6 +23,5 @@ namespace teamProject.Models
 
         [JsonIgnore]
         public virtual List<Provider_Package>? Provider_Packages { get; set; }
-
     }
 }

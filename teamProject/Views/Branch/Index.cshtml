@@ -21,11 +21,11 @@
                     <tr class="p-3 border-top border-bottom pt-3 pt-3">
                         <th>Name</th>
                         <th>Address</th>
+                        <th>Fax</th>
                         <th>Moblie 1</th>
                         <th>Mobile 2</th>
                         <th>Phone 1</th>
                         <th>Phone 2</th>
-                        <th>Fax</th>
                         <th>Manager</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -79,11 +79,11 @@
                         <tr class="p-3 border-top border-bottom pt-3">
                             <td>${branch.name}</td>
                             <td>${branch.address}</td>
+                            <td>${branch.fax || '-'}</td>
                             <td>${branch.mobile1 || '-'}</td>
                             <td>${branch.mobile2 || '-'}</td>
                             <td>${branch.phone1 || '-'}</td>
                             <td>${branch.phone2 || '-'}</td>
-                            <td>${branch.fax || '-'}</td>
                             <td>${branch.managerName || 'N/A'}</td>
                             <td class="text-center"> 
                                     <a href="${detailsUrl}" class="btn btn-primary" title="Details">
