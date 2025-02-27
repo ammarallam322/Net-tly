@@ -520,39 +520,6 @@ namespace teamProject.Migrations
                     b.ToTable("Packages");
                 });
 
-            modelBuilder.Entity("teamProject.viewModel.UserViewModel", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ConfirmPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.PrimitiveCollection<string>("Roles")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserViewModel");
-                });
 
             modelBuilder.Entity("teamProject.Models.Admin", b =>
                 {
@@ -635,9 +602,6 @@ namespace teamProject.Migrations
                         .WithMany("ManagedBranches")
                         .HasForeignKey("Manager_Id")
                         .OnDelete(DeleteBehavior.SetNull);
-                        .IsRequired();
-                        .IsRequired();
-
                     b.Navigation("Manager");
                 });
 

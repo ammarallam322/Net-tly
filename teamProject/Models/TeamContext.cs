@@ -60,6 +60,5 @@ namespace teamProject.Models
             .HasForeignKey(u => u.BranchId)
             .OnDelete(DeleteBehavior.NoAction);
         }
-        public DbSet<teamProject.viewModel.UserViewModel> UserViewModel { get; set; } = default!;
     }
 }
