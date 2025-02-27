@@ -47,7 +47,18 @@ namespace teamProject.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Branch>()
+           .HasOne(b => b.Manager)
+           .WithMany(m => m.ManagedBranches) 
+           .HasForeignKey(b => b.Manager_Id)
+           .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<ApplicationUser>()
+            .HasOne(b => b.Branch)
+            .WithMany(u => u.Employees)
+            .HasForeignKey(u => u.BranchId)
+            .OnDelete(DeleteBehavior.NoAction);
         }
-        public DbSet<teamProject.viewModel.UserViewModel> UserViewModel { get; set; } = default!;
     }
 }

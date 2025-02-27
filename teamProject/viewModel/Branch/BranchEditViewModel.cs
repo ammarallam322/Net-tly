@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using teamProject.Models;
 
 namespace teamProject.viewModel.Branch
 {
-    public class BranchPhMobViewModel
+    public class BranchEditViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -19,6 +18,7 @@ namespace teamProject.viewModel.Branch
         [MaxLength(25)]
         public string? Phone2 { get; set; }
         [Display(Name = "Manager")]
-        public string ManagerName { get; set; }
+        public string? Manager_Id { get; set; }
+        public List<ApplicationUser>? Employees { get; set; } = new List<ApplicationUser>();
     }
 }
