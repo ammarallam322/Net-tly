@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,9 +14,10 @@ using teamProject.viewModel;
 
 namespace teamProject.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-
+     
         //ref from usermanger
 
         private readonly UserManager<ApplicationUser> userManager;
@@ -89,11 +91,17 @@ namespace teamProject.Controllers
             {
                 return View(userViewModel);
             }
-
+            var existingEmail = await userManager.FindByEmailAsync(userViewModel.Email);
+            if (existingEmail != null)
+            {
+                ModelState.AddModelError("", "Username is already taken.");
+                return View("Register", userViewModel);
+            }
             var user = new ApplicationUser
             {
                 UserName = userViewModel.Name,
                 Email = userViewModel.Email,
+                PasswordHash = userViewModel.Password,
                 Address = userViewModel.Address
             };
           
@@ -175,8 +183,7 @@ namespace teamProject.Controllers
                 return NotFound();
             }
 
-            var user = await userManager.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var user = await userManager.Users.FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
                 return NotFound();
@@ -195,12 +202,34 @@ namespace teamProject.Controllers
             var user = await userManager.FindByIdAsync(id);
             if (user != null)
             {
-               await userManager.DeleteAsync(user);
-            return RedirectToAction(nameof(Index));
+                // Remove the roles associated with the user
+                var rolesForUser = await userManager.GetRolesAsync(user);
+                if (rolesForUser.Any())
+                {
+                    var result = await userManager.RemoveFromRolesAsync(user, rolesForUser);
+                    if (!result.Succeeded)
+                    {
+                        // Handle failure if necessary
+                        ModelState.AddModelError("", "Error removing user roles.");
+                        return View(user);
+                    }
+                }
+
+                // Now delete the user
+                var deleteResult = await userManager.DeleteAsync(user);
+                if (deleteResult.Succeeded)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                // Handle failure if the user deletion didn't succeed
+                ModelState.AddModelError("", "Error deleting user.");
+                return View(user);
             }
             return NotFound();
         }
 
-    
+
+
     }
 }

@@ -18,15 +18,6 @@ namespace teamProject.Controllers
             this.signInManager = signInManager;
         }
 
-
-
-
-
-
-
-
-
-
         // register
 
 
@@ -42,19 +33,27 @@ namespace teamProject.Controllers
             // check model state
             if (ModelState.IsValid)
             {
+                var existingEmail = await userManager.FindByEmailAsync(UserFromRequest.Email);
+                if (existingEmail != null)
+                {
+                    ModelState.AddModelError("", "Username is already taken.");
+                    return View("Register", UserFromRequest);
+                }
+
                 //mapping 
                 ApplicationUser appuser = new ApplicationUser()
                 {
+
                     UserName = UserFromRequest.Name,
+                    Email = UserFromRequest.Email,
                     PasswordHash = UserFromRequest.Password,
                     Address = UserFromRequest.Address,
-
-
-
                 };
+              
+               
                 // saving to database
-                IdentityResult result =
-                                  await userManager.CreateAsync(appuser, UserFromRequest.Password);
+                IdentityResult result = await userManager.CreateAsync(appuser, UserFromRequest.Password);
+                var AddUserToRole = await userManager.AddToRoleAsync(appuser, "Employee");
 
                 // create cookie in case of succes
                 if (result.Succeeded)
@@ -63,24 +62,17 @@ namespace teamProject.Controllers
                     //Create  session Cooike
                     await signInManager.SignInAsync(appuser, false);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
-                else           //adding  errors description into modelstate
+                else          
                 {
                     foreach (var i in result.Errors) { ModelState.AddModelError("", i.Description); }
 
                 }
-
-
-
             }
-
 
             return View("Register", UserFromRequest);
         }
-
-
-
 
         //login 
         public IActionResult Login()
@@ -96,13 +88,12 @@ namespace teamProject.Controllers
             //check model state
             if (ModelState.IsValid)
             {
-
-                // gettinh user from database by user name 
-                ApplicationUser userfromDB = await userManager.FindByNameAsync(UserFromRequest.UserName);
+                // ApplicationUser userfromDB = await userManager.FindByNameAsync(UserFromRequest.UserName);
+                ApplicationUser userfromDB = await userManager.FindByEmailAsync(UserFromRequest.Email);
 
                 if (userfromDB != null)
                 {
-                    //check password
+
                     bool found = await userManager.CheckPasswordAsync(userfromDB, UserFromRequest.Password);
 
                     if (found)
@@ -111,12 +102,9 @@ namespace teamProject.Controllers
                         //Create  session Cooike and redirect to home page
                         await signInManager.SignInAsync(userfromDB, false);
 
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Client");
 
                     }
-
-
-
                 }
 
                 // invalid inpupts
@@ -127,24 +115,12 @@ namespace teamProject.Controllers
             return View("Login", UserFromRequest);
 
         }
-
-
-
-
-
-
-
         //logout return to login view
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Login");
         }
-
-
-
-
-
 
     }
 }
