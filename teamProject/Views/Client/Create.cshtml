@@ -55,7 +55,7 @@
 
             <div class="form-group">
                 <label asp-for="Offer_Id" class="control-label">Offer</label>
-                <select asp-for="Offer_Id" class="form-control" asp-items="Model?.Offer_Services" id="serviceId">
+                <select asp-for="Offer_Id" id="Offer_Id" class="form-control" asp-items="Model?.Offer_Services">
                     <option value="">-- Select Offer --</option>
                 </select>
 
@@ -90,59 +90,54 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+        $(document).ready(function () {
+            $('#serviceId').change(function () {
+                var selectedServiceId = $(this).val();
+                console.log(selectedServiceId);
+
+                if (selectedServiceId) {
+                    $.ajax({
+                        url: '@Url.Action("GetAllServicesPackage", "Client")',
+                        type: 'GET',
+                        data: { id: selectedServiceId },
+                        success: function (data) {
+                            var $packageDropdown = $('#packageId');
+                            $packageDropdown.empty();
+                            $packageDropdown.append('<option value="">-- Select Package --</option>');
+                            $.each(data, function (index, item) {
+                                $packageDropdown.append('<option value="' + item.id + '">' + item.name + '</option>');
+                            });
+                        },
+                        error: function () {
+                            alert('Error loading packages');
+                        }
+                    });
+
+                    $.ajax({
+                        url: '@Url.Action("GetOfferService", "Client")',
+                        type: 'GET',
+                        data: { id: selectedServiceId },
+                        success: function (data) {
+                            var $offerDropdown = $('#Offer_Id');
+                            $offerDropdown.empty();
+                            $offerDropdown.append('<option value="">-- Select Offer --</option>');
+                            $.each(data, function (index, item) {
+                                $offerDropdown.append('<option value="' + item.id + '">' + item.name + '</option>');
+                            });
+                        },
+                        error: function () {
+                            alert('Error loading offers');
+                        }
+                    });
+                } else {
+                   
+                    $('#packageId').empty().append('<option value="">-- Select Package --</option>');
+                    $('#Offer_Id').empty().append('<option value="">-- Select Offer --</option>');
+                }
+            });
+        });
+    </script>
 }
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script>
-
-    $(document).ready(function () {
-        $('#serviceId').change(function () {
-            var selectedServiceId = $(this).val();
-            console.log(selectedServiceId);
-            if (selectedServiceId) {
-                $.ajax({
-                    url: '@Url.Action("GetAllServicesPackage", "Client")',
-                    type: 'GET',
-                    data: { id: selectedServiceId },
-                    success: function (data) {
-                        var $packageDropdown = $('#packageId');
-                        $packageDropdown.empty();
-                        $packageDropdown.append('<option value="">-- Select Package --</option>');
-                        $.each(data, function (index, item) {
-                            $packageDropdown.append('<option value="' + item.id + '">' + item.name + '</option>');
-                        });
-                    },
-                    error: function () {
-                        alert('Error loading packages');
-                    }
-                });
-            } else {
-                $('#packageId').empty();
-                $('#packageId').append('<option value="">-- Select Package --</option>');
-            }
-
-              $.ajax({
-                    url: '@Url.Action("GetOfferService", "Client")',
-                    type: 'GET',
-                    data: { id: selectedServiceId },
-                    success: function (data) {
-                        var $offerDropdown = $('#serviceId');
-                        $offerDropdown.empty();
-                        $offerDropdown.append('<option value="">-- Select Offer --</option>');
-                        $.each(data, function (index, item) {
-                            $offerDropdown.append('<option value="' + item.id + '">' + item.name + '</option>');
-                        });
-                    },
-                    error: function () {
-                        alert('Error loading offers');
-                    }
-                });
-
-            } else {
-                // Clear dropdowns if no service is selected
-                $('#packageId').empty().append('<option value="">-- Select Package --</option>');
-                $('#serviceId').empty().append('<option value="">-- Select Offer --</option>');
-            }
-        });
-    });
-</script>

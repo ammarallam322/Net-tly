@@ -266,7 +266,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Manager_Id");
 
-                    b.ToTable("Branches");
+                    b.ToTable("Branches", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.BranchMobile", b =>
@@ -293,7 +293,7 @@ namespace teamProject.Migrations
                     b.HasIndex("Br_Id")
                         .IsUnique();
 
-                    b.ToTable("BrancheMoblies");
+                    b.ToTable("BrancheMoblies", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.BranchPhone", b =>
@@ -320,7 +320,7 @@ namespace teamProject.Migrations
                     b.HasIndex("Br_Id")
                         .IsUnique();
 
-                    b.ToTable("BranchePhones");
+                    b.ToTable("BranchePhones", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.Central", b =>
@@ -342,7 +342,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Gov_Id");
 
-                    b.ToTable("Centrals");
+                    b.ToTable("Centrals", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.Client", b =>
@@ -402,7 +402,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Service_Id");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.Governerate", b =>
@@ -429,7 +429,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Branch_Id");
 
-                    b.ToTable("Governerates");
+                    b.ToTable("Governerates", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.Offer", b =>
@@ -451,7 +451,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Servuce_Id");
 
-                    b.ToTable("Offers");
+                    b.ToTable("Offers", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.Provider_Package", b =>
@@ -466,7 +466,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("provider_Id");
 
-                    b.ToTable("Provider_Package");
+                    b.ToTable("Provider_Package", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.myServiceProvider", b =>
@@ -486,7 +486,7 @@ namespace teamProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServiceProviders");
+                    b.ToTable("ServiceProviders", (string)null);
                 });
 
             modelBuilder.Entity("teamProject.Models.package", b =>
@@ -517,10 +517,9 @@ namespace teamProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Packages");
+                    b.ToTable("Packages", (string)null);
                 });
 
-           
             modelBuilder.Entity("teamProject.Models.Admin", b =>
                 {
                     b.HasBaseType("teamProject.Models.ApplicationUser");
@@ -602,6 +601,7 @@ namespace teamProject.Migrations
                         .WithMany("ManagedBranches")
                         .HasForeignKey("Manager_Id")
                         .OnDelete(DeleteBehavior.SetNull);
+
                     b.Navigation("Manager");
                 });
 

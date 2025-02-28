@@ -4,87 +4,114 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
 
-<h4>ClientViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Mobile" class="control-label"></label>
-                <input asp-for="Mobile" class="form-control" />
-                <span asp-validation-for="Mobile" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SSN" class="control-label"></label>
-                <input asp-for="SSN" class="form-control" />
-                <span asp-validation-for="SSN" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Service_Id" class="control-label"></label>
-                <select asp-for="Service_Id" class="form-control" asp-items="Model?.myServiceProviders"></select>
-                <span asp-validation-for="Service_Id" class="text-danger"></span>
-            </div>
+<div class="myMainOwnContaier">
+    <div class="container myOwnContaier rounded p-5">
+        <div class="row">
+            <table class="table table-hover">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form method="post" asp-controller="Client" asp-action="Edit" asp-route-Id="@Model?.Id">
+                <thead class="headerLabel">
+                    <tr class="p-3 border-bottom text-center">
+                        <th colspan="2">Edit Branch</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Name" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Mobile" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Mobile" class="form-control" />
+                            <span asp-validation-for="Mobile" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Phone" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Address" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Email" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="SSN" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="SSN" class="form-control" />
+                            <span asp-validation-for="SSN" class="text-danger"></span>
+                        </td>
+                    </tr>
 
-            <div class="form-group">
-                <label asp-for="Offer_Id" class="control-label"></label>
-                <select asp-for="Offer_Id" class="form-control" asp-items="Model?.Offer_Services"></select>
-                <span asp-validation-for="Offer_Id" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Central_Id" class="control-label"></label>
-                <select asp-for="Central_Id" class="form-control" asp-items="Model?.centrals"></select>
-                <span asp-validation-for="Central_Id" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Package_Id" class="control-label"></label>
-                <select asp-for="Package_Id" class="form-control" asp-items="Model?.packages"></select>
-                <span asp-validation-for="Package_Id" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Service_Id" class="control-label inputLabel"></label></td>
+                        <td>
+                            <select asp-for="Service_Id" asp-items="Model?.myServiceProviders" class="form form-control">
+                                <option value="0">--Select Services--</option>
+                            </select>
+                            <span asp-validation-for="Service_Id" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Package_Id" class="control-label inputLabel"></label></td>
+                        <td>
+                            <select asp-for="Package_Id" asp-items="Model?.packages" class="form form-control">
+                                <option value="0">--Select Package--</option>
+                            </select>
+                            <span asp-validation-for="Package_Id" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Offer_Id" class="control-label inputLabel"></label></td>
+                        <td>
+                            <select asp-for="Offer_Id" asp-items="Model?.Offer_Services" class="form form-control">
+                                <option value="0">--Select Offer--</option>
+                            </select>
+                            <span asp-validation-for="Offer_Id" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Central_Id" class="control-label inputLabel"></label></td>
+                        <td>
+                            <select asp-for="Central_Id" asp-items="Model?.centrals" class="form form-control">
+                                <option value="0">--Select Offer--</option>
+                            </select>
+                            <span asp-validation-for="Central_Id" class="text-danger"></span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="p-3 border-top">
+                        <td><a asp-action="Index"><i class="bi bi-skip-backward-fill"></i></a></td>
+                        <td><input type="submit" value="Save" class="btn btn-primary createButton" /></td>
+                    </tr>
+                </tfoot>
+                </form>
+            </table>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+

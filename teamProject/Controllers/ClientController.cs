@@ -5,6 +5,7 @@ using teamProject.Models;
 using teamProject.Repository;
 using teamProject.Repository.ImodelRepository;
 using teamProject.viewModel;
+using teamProject.viewModel.Branch;
 
 namespace teamProject.Controllers
 {
@@ -32,9 +33,28 @@ namespace teamProject.Controllers
         }
         public IActionResult Index()
         {
-
+            ViewBag.TotalCount = clientRepository.GetAll().Count();
             return View("Index", clientRepository.GetAll());
         }
+        //public IActionResult Index(int page = 1, int pageSize = 5)
+        //{
+        //    var totalCount = branch.GetPagination().Count();
+        //    var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+        //    var paginatedData = branch.GetPagination()
+        //                              .Skip((page - 1) * pageSize)
+        //                              .Take(pageSize)
+        //                              .ToList();
+
+        //    List<BranchPhMobViewModel> brnchModel = mapper.Map<List<BranchPhMobViewModel>>(paginatedData);
+
+        //    ViewBag.TotalCount = totalCount;
+        //    ViewBag.Page = page;
+        //    ViewBag.TotalPages = totalPages;
+        //    ViewBag.PageSize = pageSize;
+
+        //    return View("Index", brnchModel);
+        //}
 
         public IActionResult Details(int id)
         {
@@ -90,6 +110,7 @@ namespace teamProject.Controllers
             return Json(offer);
         }
         public IActionResult Edit(int id)
+
         {
             var package = clientRepository.GetById(id);
             ClientViewModel clientVM = mapper.Map<ClientViewModel>(package);
@@ -98,8 +119,18 @@ namespace teamProject.Controllers
                 myServiceProviders = new SelectList(serviceRepo.GetAll(), "Id", "Name"),
                 packages = new SelectList(packageRepo.GetAll(), "Id", "Name"),
                 Offer_Services = new SelectList(offerRepo.GetAll(), "Id", "Name"),
-                centrals = new SelectList(centralRepo.GetAll(), "Id", "Name")
+                centrals = new SelectList(centralRepo.GetAll(), "Id", "Name"),
+                Name = clientVM.Name,
+                Mobile = clientVM.Mobile,
+                Phone = clientVM.Phone,
+                Address = clientVM.Address,
+                Email = clientVM.Email,
+                SSN = clientVM.SSN,
+                Service_Id = clientVM.Service_Id,
+                Offer_Id = clientVM.Offer_Id,
+              
             };
+            clientVM.Id = id;
             if (package == null)
             {
                 return NotFound();
@@ -128,19 +159,20 @@ namespace teamProject.Controllers
             return View(clientVM);
         }
 
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            var package = clientRepository.GetById(id);
-            if (package == null)
-            {
-                return NotFound();
-            }
+        //[HttpGet]
+        //public IActionResult Delete(int id)
+        //{
+        //    var package = clientRepository.GetById(id);
+        //    if (package == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(package);
-        }
+        //    return View(package);
+        //}
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
             var package = clientRepository.GetById(id);
