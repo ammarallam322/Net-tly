@@ -10,7 +10,5 @@ namespace teamProject.viewModel
         public int? Gov_Id { get; set; } 
         public string GovernerateName { get; set; }
         public IEnumerable<SelectListItem>? Governerates { get; set; }
-
-
     }
 }

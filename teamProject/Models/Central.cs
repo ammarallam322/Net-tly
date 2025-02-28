@@ -14,6 +14,5 @@ namespace teamProject.Models
         [ForeignKey(nameof(Governerate))]
         public int? Gov_Id { get; set; }
 
-
     }
 }

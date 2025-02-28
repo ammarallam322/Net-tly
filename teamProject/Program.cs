@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Options;
@@ -39,7 +40,6 @@ namespace teamProject
 
 
 
-
             // regester of identity and simplyfing password constraints
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -49,7 +49,8 @@ namespace teamProject
 
             }).AddEntityFrameworkStores<TeamContext>();
 
-
+            //mona
+            builder.Services.AddDbContext<TeamContext>(options =>options.UseSqlServer("Your_Connection_String"));
 
             var app = builder.Build();
 

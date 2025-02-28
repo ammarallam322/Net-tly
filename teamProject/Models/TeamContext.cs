@@ -17,7 +17,7 @@ namespace teamProject.Models
         public virtual DbSet<Offer> Offers { get; set; }
         public virtual DbSet<package> Packages { get; set; }
         public virtual DbSet<myServiceProvider> ServiceProviders { get; set; }
-
+        public virtual DbSet<Receipt> Receipts { get; set; }
         public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
 
@@ -39,7 +39,7 @@ namespace teamProject.Models
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
 
-        //    optionsBuilder.UseSqlServer("Server=DESKTOP-PQBVQ61\\SQLEXPRESS;Database=TeamMVCProject;Trusted_Connection=True; TrustServerCertificate=True;");
+        //    optionsBuilder.UseSqlServer("Server=DESKTOP-FRBH0T7\\SQLEXPRESS;Database=TeamMVCProject;Trusted_Connection=True; TrustServerCertificate=True;");
 
         //}
 

@@ -36,5 +36,8 @@ namespace teamProject.Models
 
         //f.k??
         public int User_Id { get; set; }
+
+        // Edited By Mohab
+        public virtual Receipt Receipt { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using teamProject.Models;
 
@@ -11,9 +12,11 @@ using teamProject.Models;
 namespace teamProject.Migrations
 {
     [DbContext(typeof(TeamContext))]
-    partial class TeamContextModelSnapshot : ModelSnapshot
+    [Migration("20250222180804_v3")]
+    partial class v3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,17 +172,9 @@ namespace teamProject.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("BranchId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("nvarchar(21)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -223,8 +218,6 @@ namespace teamProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BranchId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -234,10 +227,6 @@ namespace teamProject.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("teamProject.Models.Branch", b =>
@@ -256,7 +245,8 @@ namespace teamProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Manager_Id")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -264,9 +254,7 @@ namespace teamProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Manager_Id");
-
-                    b.ToTable("Branches", (string)null);
+                    b.ToTable("Branches");
                 });
 
             modelBuilder.Entity("teamProject.Models.BranchMobile", b =>
@@ -293,7 +281,7 @@ namespace teamProject.Migrations
                     b.HasIndex("Br_Id")
                         .IsUnique();
 
-                    b.ToTable("BrancheMoblies", (string)null);
+                    b.ToTable("BrancheMoblies");
                 });
 
             modelBuilder.Entity("teamProject.Models.BranchPhone", b =>
@@ -320,7 +308,7 @@ namespace teamProject.Migrations
                     b.HasIndex("Br_Id")
                         .IsUnique();
 
-                    b.ToTable("BranchePhones", (string)null);
+                    b.ToTable("BranchePhones");
                 });
 
             modelBuilder.Entity("teamProject.Models.Central", b =>
@@ -342,7 +330,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Gov_Id");
 
-                    b.ToTable("Centrals", (string)null);
+                    b.ToTable("Centrals");
                 });
 
             modelBuilder.Entity("teamProject.Models.Client", b =>
@@ -402,7 +390,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Service_Id");
 
-                    b.ToTable("Clients", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("teamProject.Models.Governerate", b =>
@@ -429,7 +417,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Branch_Id");
 
-                    b.ToTable("Governerates", (string)null);
+                    b.ToTable("Governerates");
                 });
 
             modelBuilder.Entity("teamProject.Models.Offer", b =>
@@ -454,7 +442,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("Servuce_Id");
 
-                    b.ToTable("Offers", (string)null);
+                    b.ToTable("Offers");
                 });
 
             modelBuilder.Entity("teamProject.Models.Provider_Package", b =>
@@ -469,46 +457,7 @@ namespace teamProject.Migrations
 
                     b.HasIndex("provider_Id");
 
-                    b.ToTable("Provider_Package", (string)null);
-                });
-
-            modelBuilder.Entity("teamProject.Models.Receipt", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Client_Id")
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly?>("End_Date")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime?>("Paid_Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ServiceProviderId")
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly?>("Start_Date")
-                        .HasColumnType("date");
-
-                    b.Property<double>("Total_Price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("paymentStatus")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Client_Id")
-                        .IsUnique();
-
-                    b.HasIndex("ServiceProviderId");
-
-                    b.ToTable("Receipts");
+                    b.ToTable("Provider_Package");
                 });
 
             modelBuilder.Entity("teamProject.Models.myServiceProvider", b =>
@@ -528,7 +477,7 @@ namespace teamProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServiceProviders", (string)null);
+                    b.ToTable("ServiceProviders");
                 });
 
             modelBuilder.Entity("teamProject.Models.package", b =>
@@ -559,21 +508,60 @@ namespace teamProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Packages", (string)null);
+                    b.ToTable("Packages");
                 });
 
-            modelBuilder.Entity("teamProject.Models.Admin", b =>
+            modelBuilder.Entity("teamProject.viewModel.LoginViewModel", b =>
                 {
-                    b.HasBaseType("teamProject.Models.ApplicationUser");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("Admin");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RememberMe")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LoginViewModel");
                 });
 
-            modelBuilder.Entity("teamProject.Models.Employee", b =>
+            modelBuilder.Entity("teamProject.viewModel.RegisterViewModel", b =>
                 {
-                    b.HasBaseType("teamProject.Models.ApplicationUser");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("Employee");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConfirmPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RegisterViewModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -625,26 +613,6 @@ namespace teamProject.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("teamProject.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("teamProject.Models.Branch", "Branch")
-                        .WithMany("Employees")
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Branch");
-                });
-
-            modelBuilder.Entity("teamProject.Models.Branch", b =>
-                {
-                    b.HasOne("teamProject.Models.ApplicationUser", "Manager")
-                        .WithMany("ManagedBranches")
-                        .HasForeignKey("Manager_Id")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("teamProject.Models.BranchMobile", b =>
@@ -748,43 +716,13 @@ namespace teamProject.Migrations
                     b.Navigation("ServiceProvider");
                 });
 
-            modelBuilder.Entity("teamProject.Models.Receipt", b =>
-                {
-                    b.HasOne("teamProject.Models.Client", "Client")
-                        .WithOne("Receipt")
-                        .HasForeignKey("teamProject.Models.Receipt", "Client_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("teamProject.Models.myServiceProvider", "ServiceProvider")
-                        .WithMany()
-                        .HasForeignKey("ServiceProviderId");
-
-                    b.Navigation("Client");
-
-                    b.Navigation("ServiceProvider");
-                });
-
-            modelBuilder.Entity("teamProject.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("ManagedBranches");
-                });
-
             modelBuilder.Entity("teamProject.Models.Branch", b =>
                 {
                     b.Navigation("BranchMobiles");
 
                     b.Navigation("BranchPhones");
 
-                    b.Navigation("Employees");
-
                     b.Navigation("Governerates");
-                });
-
-            modelBuilder.Entity("teamProject.Models.Client", b =>
-                {
-                    b.Navigation("Receipt")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("teamProject.Models.Governerate", b =>
