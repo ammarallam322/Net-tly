@@ -47,10 +47,10 @@ namespace teamProject
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
 
-            }).AddEntityFrameworkStores<TeamContext>();
+            }).AddEntityFrameworkStores<TeamContext>().AddDefaultTokenProviders(); 
 
-            //mona
-            builder.Services.AddDbContext<TeamContext>(options =>options.UseSqlServer("Your_Connection_String"));
+            ////mona
+            //builder.Services.AddDbContext<TeamContext>(options =>options.UseSqlServer("Your_Connection_String"));
 
             var app = builder.Build();
 
