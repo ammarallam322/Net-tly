@@ -4,76 +4,89 @@
     ViewData["Title"] = "Index";
 }
 
-<select  class="form-control" asp-items="Model?.clients" id="clientDropdown" >
-    <option value="" selected>--Select Client --</option>
-</select>
-<br />
+<!-- Add Bootstrap container class for better layout -->
+<div class="container mt-4">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th>SSN</th>
-            <th>Name</th>
-            <th>Mobile</th>
-            <th>Offer Name</th>
-            <th>Package Name</th>
-            <th>Package Price</th>
-            <th>Total Price</th>
-            <th>Service Provider </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td id="phone"></td>
-            <td id="address"></td>
-            <td id="email"></td>
-            <td id="ssn"></td>
-            <td id="name"></td>
-            <td id="mobile"></td>
-            <td id="offerName"></td>
-            <td id="packageName"></td>
-            <td id="packagePrice"></td>
-            <td id="totalPrice"></td>
-            <td id="serviceProviderName"></td>
-        </tr>
-    </tbody>
-</table>
+    <!-- Client Dropdown with Bootstrap classes for styling -->
+    <div class="form-group">
+        <label for="clientDropdown">Select Client</label>
+        <select class="form-control" asp-items="Model?.clients" id="clientDropdown">
+            <option value="" selected>--Select Client--</option>
+        </select>
+    </div>
+    <br />
+
+    <!-- Table with Bootstrap classes for better styling and responsiveness -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>SSN</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Offer Name</th>
+                    <th>Package Name</th>
+                    <th>Package Price</th>
+                    <th>Total Price</th>
+                    <th>Service Provider</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="phone"></td>
+                    <td id="address"></td>
+                    <td id="email"></td>
+                    <td id="ssn"></td>
+                    <td id="name"></td>
+                    <td id="mobile"></td>
+                    <td id="offerName"></td>
+                    <td id="packageName"></td>
+                    <td id="packagePrice"></td>
+                    <td id="totalPrice"></td>
+                    <td id="serviceProviderName"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
 @section Scripts {
-<script>
-    $(document).ready(function () {
-        $('#clientDropdown').change(function () {
-            var clientId = $(this).val();
-            console.log(clientId);
-            if (clientId) {
-                $.ajax({
-                    url: '@Url.Action("GetClientDetails", "Reciet")',
-                    type: 'GET',
-                    data: { clientId: clientId },
-                    success: function (data) {
-                        $('#phone').text(data.phone);
-                        $('#address').text(data.address);
-                        $('#email').text(data.email);
-                        $('#ssn').text(data.ssn);
-                        $('#name').text(data.name);
-                        $('#mobile').text(data.mobile);
-                        $('#offerName').text(data.offerName);
-                        $('#packageName').text(data.packageName);
-                        $('#packagePrice').text(data.package_Price);
-                        $('#totalPrice').text(data.total_Price);
-                        $('#serviceProviderName').text(data.serviceProviderName);
-                    },
-                    error: function () {
-                        alert('Error retrieving data.');
-                    }
-                });
-            } else {
-               
-                $('#clientDetails td').text('');
-            }
+    <script>
+        $(document).ready(function () {
+            $('#clientDropdown').change(function () {
+                var clientId = $(this).val();
+                console.log(clientId);
+                if (clientId) {
+                    $.ajax({
+                        url: '@Url.Action("GetClientDetails", "Reciet")',
+                        type: 'GET',
+                        data: { clientId: clientId },
+                        success: function (data) {
+                            $('#phone').text(data.phone);
+                            $('#address').text(data.address);
+                            $('#email').text(data.email);
+                            $('#ssn').text(data.ssn);
+                            $('#name').text(data.name);
+                            $('#mobile').text(data.mobile);
+                            $('#offerName').text(data.offerName);
+                            $('#packageName').text(data.packageName);
+                            $('#packagePrice').text(data.package_Price);
+                            $('#totalPrice').text(data.total_Price);
+                            $('#serviceProviderName').text(data.serviceProviderName);
+                        },
+                        error: function () {
+                            alert('Error retrieving data.');
+                        }
+                    });
+                } else {
+                    // Clear the table if no client is selected
+                    $('#clientDetails td').text('');
+                }
+            });
         });
-    });
-</script>
+    </script>
 }
