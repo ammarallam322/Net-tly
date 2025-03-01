@@ -36,25 +36,7 @@ namespace teamProject.Controllers
             ViewBag.TotalCount = clientRepository.GetAll().Count();
             return View("Index", clientRepository.GetAll());
         }
-        //public IActionResult Index(int page = 1, int pageSize = 5)
-        //{
-        //    var totalCount = branch.GetPagination().Count();
-        //    var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
-
-        //    var paginatedData = branch.GetPagination()
-        //                              .Skip((page - 1) * pageSize)
-        //                              .Take(pageSize)
-        //                              .ToList();
-
-        //    List<BranchPhMobViewModel> brnchModel = mapper.Map<List<BranchPhMobViewModel>>(paginatedData);
-
-        //    ViewBag.TotalCount = totalCount;
-        //    ViewBag.Page = page;
-        //    ViewBag.TotalPages = totalPages;
-        //    ViewBag.PageSize = pageSize;
-
-        //    return View("Index", brnchModel);
-        //}
+        
 
         public IActionResult Details(int id)
         {
@@ -101,13 +83,23 @@ namespace teamProject.Controllers
         }
         public IActionResult GetAllServicesPackage(int id)
         {
-            var services = clientRepo.GetServicePackages(id);
-            return Json(services);
+            var Package = clientRepo.GetServicePackages(id);
+
+            return Json(Package);
         }
         public IActionResult GetOfferService(int id)
         {
-            var offer = clientRepo.GetOfferService(id);
-            return Json(offer);
+            List<Offer> offers = clientRepo.GetOfferService(id);
+            List<ShowOfferViewModel> showOffer = new List<ShowOfferViewModel>();
+            foreach (var item in offers)
+            {
+                ShowOfferViewModel myOffer = new ShowOfferViewModel();
+                myOffer.Id = item.Id;
+                myOffer.Name = item.Name;
+                showOffer.Add(myOffer);
+            }
+
+            return Json(showOffer);
         }
         public IActionResult Edit(int id)
 
@@ -159,24 +151,25 @@ namespace teamProject.Controllers
             return View(clientVM);
         }
 
-        //[HttpGet]
-        //public IActionResult Delete(int id)
-        //{
-        //    var package = clientRepository.GetById(id);
-        //    if (package == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var myClient = clientRepository.GetById(id);
+            ClientViewModel clientVM = mapper.Map<ClientViewModel>(myClient);
+            if (clientVM == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(package);
-        //}
+            return View(clientVM);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var package = clientRepository.GetById(id);
-            if (package == null)
+            var Client = clientRepository.GetById(id);
+            if (Client == null)
             {
                 return NotFound();
             }
@@ -187,7 +180,7 @@ namespace teamProject.Controllers
             }
             catch (Exception ex)
             {
-                return View(package);
+                return View(Client);
             }
             return RedirectToAction(nameof(Index));
         }

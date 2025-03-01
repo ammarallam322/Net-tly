@@ -90,15 +90,6 @@ namespace teamProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var existingBranch = branch.GetBranchWithMobPhnById(branchFromReq, id);
-
-                //if (existingBranch != null)
-                //{
-                //    ModelState.AddModelError("Manager_Id", "This manager is already assigned to another branch.");
-                //    branchFromReq.Employees = await user.Users.ToListAsync() ?? new List<ApplicationUser>();
-                //    return View("Details", branchFromReq);
-                //}
-
                 Branch branchEntity = branch.GetBranchWithMobPhnById(id);
 
                 if (branchEntity == null)
@@ -196,11 +187,11 @@ namespace teamProject.Controllers
             {
                 return NotFound();
             }
-            
+
             branch.Delete(id);
             branch.Save();
 
-            return RedirectToAction("Index");
+            return Json(new { success = true });
         }
     }
 }

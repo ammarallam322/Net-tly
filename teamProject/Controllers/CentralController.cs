@@ -107,14 +107,14 @@ namespace teamProject.Controllers
 
         public IActionResult Edit(int id)
         {
-            var central = _context.Centrals.Find(id);
+            var central = _context.Centrals.FirstOrDefault(c => c.Id == id);
             if (central == null) return NotFound();
 
-            var model = new CentralGovernmentViewModel
+            CentralGovernmentViewModel model = new CentralGovernmentViewModel()
             {
                 Id = central.Id,
                 Name = central.Name,
-                Gov_Id = (int)central.Gov_Id,
+                Gov_Id = central.Gov_Id ?? 0,
                 Governerates = _context.Governerates.Select(g => new SelectListItem
                 {
                     Value = g.Id.ToString(),
@@ -150,16 +150,17 @@ namespace teamProject.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index)); 
         }
-
-        public IActionResult Delete(int id)
+        // Delete ----------------------------------------------------
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
         {
             var central = _context.Centrals.Find(id);
             if (central == null) return NotFound();
 
             _context.Centrals.Remove(central);
             _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            return Json(new { success = true });
         }
-
     }
 }

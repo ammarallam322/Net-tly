@@ -1,37 +1,61 @@
 ﻿@using teamProject.viewModel
 @using System.Collections.Generic
 @model List<OfferServiceProviderViewModel>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 
+@{
+    ViewData["Title"] = "Offers";
+    Layout = "_MyLayout";
+}
 
+<div class="myMainOwnContaier">
+    <div class="container myOwnContaier rounded p-5">
+        <div class="row flex-nowrap justify-content-between branchHeader">
+            <h2 class="fs-1 col-sm-6">Offers</h2>
+            <h4 class="fs-2 col-sm-6 text-end">Total Offers: @Model.Count</h4>
+        </div>
 
+        <div class="row">
+            <a asp-action="Create" class="my-3 btn custom-btn btn-3"><span>+ Add Offer</span></a>
+        </div>
 
-<h2>Offers</h2>
-<a asp-action="Create" class="btn btn-primary">Create New Offer</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Duration</th>
-            <th>Service Provider</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var offer in Model)
-        {
-            <tr>
-                <td>@offer.Name</td>
-                <td>@offer.OfferDuration</td>
-                <td>@offer.ServiceProviderName</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@offer.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@offer.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@offer.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <div class="row">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="p-3 border-top border-bottom pt-3">
+                        <th>Name</th>
+                        <th>Duration</th>
+                        <th>Service Provider</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var offer in Model)
+                    {
+                        <tr class="p-3 border-top border-bottom pt-3">
+                            <td>@offer.Name</td>
+                            <td>@offer.OfferDuration</td>
+                            <td>@offer.ServiceProviderName</td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@offer.Id" class="btn btn-primary mx-1" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@offer.Id" class="btn btn-info mx-1" title="Details">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <button class="btn btn-danger mx-1" onclick="confirmDelete(@offer.Id, '/Offer/DeleteConfirmed')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
