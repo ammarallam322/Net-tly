@@ -9,6 +9,7 @@ using teamProject.MapConfig;
 using teamProject.Models;
 using teamProject.Repository;
 using teamProject.Repository.ImodelRepository;
+using teamProject.Services;
 
 namespace teamProject
 {
@@ -37,6 +38,7 @@ namespace teamProject
             builder.Services.AddScoped(typeof(IRepositoryGeneric<Client>), typeof(RepositoryGeneric<Client>));
             builder.Services.AddScoped<IBranchRepository, BranchRepository>();
             builder.Services.AddScoped<IClientRepository, ClientRepository>();
+            builder.Services.AddScoped<IRecietServicecs, RecietServicecs>();
 
 
 

@@ -1,0 +1,79 @@
+﻿@model teamProject.viewModel.ReceitViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<select  class="form-control" asp-items="Model?.clients" id="clientDropdown" >
+    <option value="" selected>--Select Client --</option>
+</select>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>SSN</th>
+            <th>Name</th>
+            <th>Mobile</th>
+            <th>Offer Name</th>
+            <th>Package Name</th>
+            <th>Package Price</th>
+            <th>Total Price</th>
+            <th>Service Provider </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="phone"></td>
+            <td id="address"></td>
+            <td id="email"></td>
+            <td id="ssn"></td>
+            <td id="name"></td>
+            <td id="mobile"></td>
+            <td id="offerName"></td>
+            <td id="packageName"></td>
+            <td id="packagePrice"></td>
+            <td id="totalPrice"></td>
+            <td id="serviceProviderName"></td>
+        </tr>
+    </tbody>
+</table>
+@section Scripts {
+<script>
+    $(document).ready(function () {
+        $('#clientDropdown').change(function () {
+            var clientId = $(this).val();
+            console.log(clientId);
+            if (clientId) {
+                $.ajax({
+                    url: '@Url.Action("GetClientDetails", "Reciet")',
+                    type: 'GET',
+                    data: { clientId: clientId },
+                    success: function (data) {
+                        $('#phone').text(data.phone);
+                        $('#address').text(data.address);
+                        $('#email').text(data.email);
+                        $('#ssn').text(data.ssn);
+                        $('#name').text(data.name);
+                        $('#mobile').text(data.mobile);
+                        $('#offerName').text(data.offerName);
+                        $('#packageName').text(data.packageName);
+                        $('#packagePrice').text(data.package_Price);
+                        $('#totalPrice').text(data.total_Price);
+                        $('#serviceProviderName').text(data.serviceProviderName);
+                    },
+                    error: function () {
+                        alert('Error retrieving data.');
+                    }
+                });
+            } else {
+               
+                $('#clientDetails td').text('');
+            }
+        });
+    });
+</script>
+}

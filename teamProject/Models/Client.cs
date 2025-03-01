@@ -31,7 +31,7 @@ namespace teamProject.Models
         //nav
         public virtual package package { get; set; }
         [ForeignKey(nameof(package))]
-        public int? Package_Id { get; set; }
+        public int Package_Id { get; set; }
 
 
         //f.k??
