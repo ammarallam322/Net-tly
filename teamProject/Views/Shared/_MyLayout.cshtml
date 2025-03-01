@@ -1,12 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Spica Admin</title>
     <!-- base:css -->
     <link rel="stylesheet" href="/vendors/mdi/css/materialdesignicons.min.css" />
@@ -28,415 +26,225 @@
     <link rel="stylesheet" href="/teamProject.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="/css/branchStyling.css" asp-append-version="true">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container-scroller d-flex">
-      <div class="row p-0 m-0 proBanner" id="proBanner">
-        <div class="col-md-12 p-0 m-0">
-          <div
-            class="card-body card-body-padding d-flex align-items-center justify-content-between"
-          >
-            <div class="ps-lg-1">
-              <div class="d-flex align-items-center justify-content-between">
-                <p class="mb-0 font-weight-medium me-3 buy-now-text">
-                  Free 24/7 customer support, updates, and more with this
-                  template!
-                </p>
-                <a
-                  href="https://www.bootstrapdash.com/product/spica-admin/?utm_source=organic&utm_medium=banner&utm_campaign=buynow_demo"
-                  target="_blank"
-                  class="btn me-2 buy-now-btn border-0"
-                  >Get Pro</a
-                >
-              </div>
+        <div class="row p-0 m-0 proBanner" id="proBanner">
+            <div class="col-md-12 p-0 m-0">
+                <div class="card-body card-body-padding d-flex align-items-center justify-content-between">
+                    <div class="ps-lg-1">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p class="mb-0 font-weight-medium me-3 buy-now-text">
+                                Free 24/7 customer support, updates, and more with this
+                                template!
+                            </p>
+                            <a href="https://www.bootstrapdash.com/product/spica-admin/?utm_source=organic&utm_medium=banner&utm_campaign=buynow_demo"
+                               target="_blank"
+                               class="btn me-2 buy-now-btn border-0">Get Pro</a>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <a href="https://www.bootstrapdash.com/product/spica-admin/">
+                            <i class="mdi mdi-home me-3 text-white"></i>
+                        </a>
+                        <button id="bannerClose" class="btn border-0 p-0">
+                            <i class="mdi mdi-close text-white mr-0"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="d-flex align-items-center justify-content-between">
-              <a href="https://www.bootstrapdash.com/product/spica-admin/"
-                ><i class="mdi mdi-home me-3 text-white"></i
-              ></a>
-              <button id="bannerClose" class="btn border-0 p-0">
-                <i class="mdi mdi-close text-white mr-0"></i>
-              </button>
-            </div>
-          </div>
         </div>
-      </div>
-      <!-- partial:./partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-          <li class="nav-item sidebar-category">
-            <p>Navigation</p>
-            <span></span>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">
-              <i class="mdi mdi-view-quilt menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
-              <div class="badge badge-info badge-pill"></div>
-            </a>
-          </li>
-          <li class="nav-item sidebar-category">
-            <p>Components</p>
-            <span></span>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              data-bs-toggle="collapse"
-              href="#ui-basic"
-              aria-expanded="false"
-              aria-controls="ui-basic"
-            >
-              <i class="mdi mdi-palette menu-icon"></i>
-              <span class="menu-title">UI Elements</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item">
-                  <a class="nav-link" href="pages/ui-features/buttons.html"
-                    >Buttons</a
-                  >
+        <!-- partial:./partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+                <li class="nav-item sidebar-category">
+                    <p>Navigation</p>
+                    <span></span>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="pages/ui-features/typography.html"
-                    >Typography</a
-                  >
+                    <a class="nav-link" href="index.html">
+                        <i class="fa-solid fa-tachometer-alt menu-icon"></i>
+                        <span class="menu-title">Dashboard</span>
+                    </a>
                 </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
-              <i class="mdi mdi-view-headline menu-icon"></i>
-              <span class="menu-title">Form elements</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/charts/chartjs.html">
-              <i class="mdi mdi-chart-pie menu-icon"></i>
-              <span class="menu-title">Charts</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">
-              <i class="mdi mdi-grid-large menu-icon"></i>
-              <span class="menu-title">Tables</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/icons/mdi.html">
-              <i class="mdi mdi-emoticon menu-icon"></i>
-              <span class="menu-title">Icons</span>
-            </a>
-          </li>
-          <li class="nav-item sidebar-category">
-            <p>Pages</p>
-            <span></span>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              data-bs-toggle="collapse"
-              href="#auth"
-              aria-expanded="false"
-              aria-controls="auth"
-            >
-              <i class="mdi mdi-account menu-icon"></i>
-              <span class="menu-title">User Pages</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item">
-                  <a class="nav-link" href="pages/samples/login.html">
-                    Login
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="pages/samples/login-2.html">
-                    Login 2
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="pages/samples/register.html">
-                    Register
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="pages/samples/register-2.html">
-                    Register 2
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="pages/samples/lock-screen.html">
-                    Lockscreen
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item sidebar-category">
-            <p>Apps</p>
-            <span></span>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="docs/documentation.html">
-              <i class="mdi mdi-file-document-box-outline menu-icon"></i>
-              <span class="menu-title">Documentation</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="https://www.bootstrapdash.com/product/spica-admin/"
-            >
-              <button class="btn bg-danger btn-sm menu-title">
-                Upgrade to pro
-              </button>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:./partials/_navbar.html -->
-        @* <nav class="navbar col-lg-12 col-12 px-0 py-0 py-lg-4 d-flex flex-row"> *@
-        @*   <div *@
-        @*     class="navbar-menu-wrapper d-flex align-items-center justify-content-end" *@
-        @*   > *@
-        @*     <button *@
-        @*       class="navbar-toggler navbar-toggler align-self-center" *@
-        @*       type="button" *@
-        @*       data-toggle="minimize" *@
-        @*     > *@
-        @*       <span class="mdi mdi-menu"></span> *@
-        @*     </button> *@
-        @*     <div class="navbar-brand-wrapper"> *@
-        @*       <a class="navbar-brand brand-logo" href="index.html" *@
-        @*         ><img src="images/logo.svg" alt="logo" *@
-        @*       /></a> *@
-        @*       <a class="navbar-brand brand-logo-mini" href="index.html" *@
-        @*         ><img src="images/logo-mini.svg" alt="logo" *@
-        @*       /></a> *@
-        @*     </div> *@
-        @*     <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1"> *@
-        @*       Welcome back, Brandon Haynes *@
-        @*     </h4> *@
-        @*     <ul class="navbar-nav navbar-nav-right"> *@
-        @*       <li class="nav-item"> *@
-        @*         <h4 class="mb-0 font-weight-bold d-none d-xl-block"> *@
-        @*           Mar 12, 2019 - Apr 10, 2019 *@
-        @*         </h4> *@
-        @*       </li> *@
-        @*       <li class="nav-item dropdown me-1"> *@
-        @*         <a *@
-        @*           class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" *@
-        @*           id="messageDropdown" *@
-        @*           href="#" *@
-        @*           data-bs-toggle="dropdown" *@
-        @*         > *@
-        @*           <i class="mdi mdi-calendar mx-0"></i> *@
-        @*           <span class="count bg-info">2</span> *@
-        @*         </a> *@
-        @*         <div *@
-        @*           class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" *@
-        @*           aria-labelledby="messageDropdown" *@
-        @*         > *@
-        @*           <p class="mb-0 font-weight-normal float-left dropdown-header"> *@
-        @*             Messages *@
-        @*           </p> *@
-        @*           <a class="dropdown-item preview-item"> *@
-        @*             <div class="preview-thumbnail"> *@
-        @*               <img *@
-        @*                 src="images/faces/face4.jpg" *@
-        @*                 alt="image" *@
-        @*                 class="profile-pic" *@
-        @*               /> *@
-        @*             </div> *@
-        @*             <div class="preview-item-content flex-grow"> *@
-        @*               <h6 class="preview-subject ellipsis font-weight-normal"> *@
-        @*                 David Grey *@
-        @*               </h6> *@
-        @*               <p class="font-weight-light small-text text-muted mb-0"> *@
-        @*                 The meeting is cancelled *@
-        @*               </p> *@
-        @*             </div> *@
-        @*           </a> *@
-        @*           <a class="dropdown-item preview-item"> *@
-        @*             <div class="preview-thumbnail"> *@
-        @*               <img *@
-        @*                 src="images/faces/face2.jpg" *@
-        @*                 alt="image" *@
-        @*                 class="profile-pic" *@
-        @*               /> *@
-        @*             </div> *@
-        @*             <div class="preview-item-content flex-grow"> *@
-        @*               <h6 class="preview-subject ellipsis font-weight-normal"> *@
-        @*                 Tim Cook *@
-        @*               </h6> *@
-        @*               <p class="font-weight-light small-text text-muted mb-0"> *@
-        @*                 New product launch *@
-        @*               </p> *@
-        @*             </div> *@
-        @*           </a> *@
-        @*           <a class="dropdown-item preview-item"> *@
-        @*             <div class="preview-thumbnail"> *@
-        @*               <img *@
-        @*                 src="images/faces/face3.jpg" *@
-        @*                 alt="image" *@
-        @*                 class="profile-pic" *@
-        @*               /> *@
-        @*             </div> *@
-        @*             <div class="preview-item-content flex-grow"> *@
-        @*               <h6 class="preview-subject ellipsis font-weight-normal"> *@
-        @*                 Johnson *@
-        @*               </h6> *@
-        @*               <p class="font-weight-light small-text text-muted mb-0"> *@
-        @*                 Upcoming board meeting *@
-        @*               </p> *@
-        @*             </div> *@
-        @*           </a> *@
-        @*         </div> *@
-        @*       </li> *@
-        @*       <li class="nav-item dropdown me-2"> *@
-        @*         <a *@
-        @*           class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" *@
-        @*           id="notificationDropdown" *@
-        @*           href="#" *@
-        @*           data-bs-toggle="dropdown" *@
-        @*         > *@
-        @*           <i class="mdi mdi-email-open mx-0"></i> *@
-        @*           <span class="count bg-danger">1</span> *@
-        @*         </a> *@
-        @*         <div *@
-        @*           class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" *@
-        @*           aria-labelledby="notificationDropdown" *@
-        @*         > *@
-        @*           <p class="mb-0 font-weight-normal float-left dropdown-header"> *@
-        @*             Notifications *@
-        @*           </p> *@
-        @*           <a class="dropdown-item preview-item"> *@
-        @*             <div class="preview-thumbnail"> *@
-        @*               <div class="preview-icon bg-success"> *@
-        @*                 <i class="mdi mdi-information mx-0"></i> *@
-        @*               </div> *@
-        @*             </div> *@
-        @*             <div class="preview-item-content"> *@
-        @*               <h6 class="preview-subject font-weight-normal"> *@
-        @*                 Application Error *@
-        @*               </h6> *@
-        @*               <p class="font-weight-light small-text mb-0 text-muted"> *@
-        @*                 Just now *@
-        @*               </p> *@
-        @*             </div> *@
-        @*           </a> *@
-        @*           <a class="dropdown-item preview-item"> *@
-        @*             <div class="preview-thumbnail"> *@
-        @*               <div class="preview-icon bg-warning"> *@
-        @*                 <i class="mdi mdi-settings mx-0"></i> *@
-        @*               </div> *@
-        @*             </div> *@
-        @*             <div class="preview-item-content"> *@
-        @*               <h6 class="preview-subject font-weight-normal"> *@
-        @*                 Settings *@
-        @*               </h6> *@
-        @*               <p class="font-weight-light small-text mb-0 text-muted"> *@
-        @*                 Private message *@
-        @*               </p> *@
-        @*             </div> *@
-        @*           </a> *@
-        @*           <a class="dropdown-item preview-item"> *@
-        @*             <div class="preview-thumbnail"> *@
-        @*               <div class="preview-icon bg-info"> *@
-        @*                 <i class="mdi mdi-account-box mx-0"></i> *@
-        @*               </div> *@
-        @*             </div> *@
-        @*             <div class="preview-item-content"> *@
-        @*               <h6 class="preview-subject font-weight-normal"> *@
-        @*                 New user registration *@
-        @*               </h6> *@
-        @*               <p class="font-weight-light small-text mb-0 text-muted"> *@
-        @*                 2 days ago *@
-        @*               </p> *@
-        @*             </div> *@
-        @*           </a> *@
-        @*         </div> *@
-        @*       </li> *@
-        @*     </ul> *@
-        @*     <button *@
-        @*       class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" *@
-        @*       type="button" *@
-        @*       data-toggle="offcanvas" *@
-        @*     > *@
-        @*       <span class="mdi mdi-menu"></span> *@
-        @*     </button> *@
-        @*   </div> *@
-        @*   <div *@
-        @*     class="navbar-menu-wrapper navbar-search-wrapper d-none d-lg-flex align-items-center" *@
-        @*   > *@
-        @*     <ul class="navbar-nav mr-lg-2"> *@
-        @*       <li class="nav-item nav-search d-none d-lg-block"> *@
-        @*         <div class="input-group"> *@
-        @*           <input *@
-        @*             type="text" *@
-        @*             class="form-control" *@
-        @*             placeholder="Search Here..." *@
-        @*             aria-label="search" *@
-        @*             aria-describedby="search" *@
-        @*           /> *@
-        @*         </div> *@
-        @*       </li> *@
-        @*     </ul> *@
-        @*     <ul class="navbar-nav navbar-nav-right"> *@
-        @*       <li class="nav-item nav-profile dropdown"> *@
-        @*         <a *@
-        @*           class="nav-link dropdown-toggle" *@
-        @*           href="#" *@
-        @*           data-bs-toggle="dropdown" *@
-        @*           id="profileDropdown" *@
-        @*         > *@
-        @*           <img src="images/faces/face5.jpg" alt="profile" /> *@
-        @*           <span class="nav-profile-name">Eleanor Richardson</span> *@
-        @*         </a> *@
-        @*         <div *@
-        @*           class="dropdown-menu dropdown-menu-right navbar-dropdown" *@
-        @*           aria-labelledby="profileDropdown" *@
-        @*         > *@
-        @*           <a class="dropdown-item"> *@
-        @*             <i class="mdi mdi-settings text-primary"></i> *@
-        @*             Settings *@
-        @*           </a> *@
-        @*           <a class="dropdown-item"> *@
-        @*             <i class="mdi mdi-logout text-primary"></i> *@
-        @*             Logout *@
-        @*           </a> *@
-        @*         </div> *@
-        @*       </li> *@
-        @*       <li class="nav-item"> *@
-        @*         <a href="#" class="nav-link icon-link"> *@
-        @*           <i class="mdi mdi-plus-circle-outline"></i> *@
-        @*         </a> *@
-        @*       </li> *@
-        @*       <li class="nav-item"> *@
-        @*         <a href="#" class="nav-link icon-link"> *@
-        @*           <i class="mdi mdi-web"></i> *@
-        @*         </a> *@
-        @*       </li> *@
-        @*       <li class="nav-item"> *@
-        @*         <a href="#" class="nav-link icon-link"> *@
-        @*           <i class="mdi mdi-clock-outline"></i> *@
-        @*         </a> *@
-        @*       </li> *@
-        @*     </ul> *@
-        @*   </div> *@
-        @* </nav> *@
-		@RenderBody()
-        <!-- partial -->
 
-        <!-- main-panel ends -->
-      </div>
-      <!-- page-body-wrapper ends -->
+                <!-- Employee Section -->
+                <li class="nav-item sidebar-category">
+                    <p>Employee</p>
+                    <span></span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#client-menu" aria-expanded="false" aria-controls="client-menu">
+                        <i class="fa-solid fa-user-tie menu-icon"></i>
+                        <span class="menu-title">Client</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="client-menu">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Client" asp-action="Index">All Clients</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Client" asp-action="Create">Add Client</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Reciet" asp-action="Index">
+                        <i class="fa-solid fa-file-invoice menu-icon"></i>
+                        <span class="menu-title">All Receits</span>
+                    </a>
+                </li>
+
+                <!-- Admin Section -->
+                <li class="nav-item sidebar-category">
+                    <p>Admin</p>
+                    <span></span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#user-menu" aria-expanded="false" aria-controls="user-menu">
+                        <i class="fa-solid fa-users-cog menu-icon"></i>
+                        <span class="menu-title">User</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="user-menu">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="Index">All Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="Create">Add User</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#role-menu" aria-expanded="false" aria-controls="role-menu">
+                        <i class="fa-solid fa-key menu-icon"></i>
+                        <span class="menu-title">Role</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="role-menu">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Role" asp-action="Index">All Roles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Role" asp-action="Create">Add Role</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- Add similar menu structure with relevant icons for other sections like Branch, Central, Packages, etc. -->
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <!-- Replaced mdi-palette with fa-solid fa-code-branch from FontAwesome -->
+                        <i class="fa-solid fa-code-branch menu-icon"></i>
+                        <span class="menu-title">Branch</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Branch" asp-action="Index">All Branches</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Branch" asp-action="Create">Add Branch</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <!-- Replaced mdi-palette with fa-solid fa-building from FontAwesome -->
+                        <i class="fa-solid fa-building menu-icon"></i>
+                        <span class="menu-title">Central</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Central" asp-action="Index">All Centrals</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Central" asp-action="Create">Add Central</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <!-- Replaced mdi-palette with fa-solid fa-box from FontAwesome -->
+                        <i class="fa-solid fa-box menu-icon"></i>
+                        <span class="menu-title">Packages</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Packages" asp-action="Index">All Packages</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Packages" asp-action="Create">Add Package</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <!-- Replaced mdi-palette with fa-solid fa-gift from FontAwesome -->
+                        <i class="fa-solid fa-gift menu-icon"></i>
+                        <span class="menu-title">Offer</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Offer" asp-action="Index">All Offers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Offer" asp-action="Create">Add Offer</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <!-- Replaced mdi-palette with fa-solid fa-landmark from FontAwesome -->
+                        <i class="fa-solid fa-landmark menu-icon"></i>
+                        <span class="menu-title">Government</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Governerate" asp-action="Index">All Governments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Governerate" asp-action="Create">Add Government</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+
+
+            </ul>
+        </nav>
+
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:./partials/_navbar.html -->
+            @RenderBody()
+            <!-- partial -->
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
     <!-- base:js -->
@@ -461,6 +269,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-  </body>
+</body>
 </html>
 
