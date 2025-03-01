@@ -1,34 +1,70 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 
 
-
-@using teamProject.viewModel
+        @using teamProject.viewModel
 @using System.Collections.Generic
 @model OfferServiceProviderViewModel
 
-<h2>Edit Offer</h2>
-<form asp-action="Edit" method="post">
-    <input type="hidden" asp-for="Id" />
-    <div class="form-group">
-        <label>Name</label>
-        <input asp-for="Name" class="form-control" />
+@{
+    ViewData["Title"] = "Edit Offer";
+}
+
+<div class="myMainOwnContaier">
+    <div class="container myOwnContaier rounded p-5">
+        <div class="row">
+            <table class="table table-hover">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    
+                    <thead class="headerLabel">
+                        <tr class="p-3 border-bottom text-center">
+                            <th colspan="2">Edit Offer</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr class="p-3 border-top border-bottom">
+                            <td><label asp-for="Name" class="control-label inputLabel"></label></td>
+                            <td>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </td>
+                        </tr>
+                        <tr class="p-3 border-top border-bottom">
+                            <td><label asp-for="OfferDuration" class="control-label inputLabel"></label></td>
+                            <td>
+                                <input asp-for="OfferDuration" class="form-control" />
+                                <span asp-validation-for="OfferDuration" class="text-danger"></span>
+                            </td>
+                        </tr>
+                        <tr class="p-3 border-top border-bottom">
+                            <td><label asp-for="ServiceProviderId" class="control-label inputLabel"></label></td>
+                            <td>
+                                <select asp-for="ServiceProviderId" asp-items="Model.ServiceProviders" class="form-control">
+                                    <option value="0">--Select Service Provider--</option>
+                                </select>
+                                <span asp-validation-for="ServiceProviderId" class="text-danger"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr class="p-3 border-top">
+                            <td>
+                                <a asp-action="Index" class="btn btn-secondary"><i class="bi bi-skip-backward-fill"></i> Back</a>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </form>
+            </table>
+        </div>
     </div>
-    <div class="form-group">
-        <label>Duration</label>
-        <input asp-for="OfferDuration" class="form-control" />
-    </div>
+</div>
 
-  <div class="form-group">
-        <label asp-for="ServiceProviderId">ServiceProvider</label>
-        <select asp-for="ServiceProviderId" asp-items="Model.ServiceProviders"
-                class="form-control"></select>
-        <span asp-validation-for="ServiceProviderId" class="text-danger"></span>
-    </div> 
-
-
-    <button type="submit" class="btn btn-primary">Update</button>
-</form>
-
-
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
