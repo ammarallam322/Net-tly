@@ -9,6 +9,7 @@ using teamProject.MapConfig;
 using teamProject.Models;
 using teamProject.Repository;
 using teamProject.Repository.ImodelRepository;
+using teamProject.Repository.modelRepository;
 using teamProject.Services;
 
 namespace teamProject
@@ -39,6 +40,13 @@ namespace teamProject
             builder.Services.AddScoped<IBranchRepository, BranchRepository>();
             builder.Services.AddScoped<IClientRepository, ClientRepository>();
             builder.Services.AddScoped<IRecietServicecs, RecietServicecs>();
+
+
+
+
+            builder.Services.AddScoped<IpaymentRepository, PaymentRepository>();
+
+            builder.Services.AddScoped<IPaymentSevice, PaymentSevice>();
 
 
 

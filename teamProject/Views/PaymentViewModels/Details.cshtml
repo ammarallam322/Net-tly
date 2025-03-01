@@ -1,0 +1,52 @@
+﻿@model teamProject.viewModel.PaymentViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="myMainOwnContaier">
+    <div class="container myOwnContaier rounded p-5">
+        <div class="row">
+            <table class="table table-hover">
+                <thead class="headerLabel">
+                    <tr class="p-3 border-bottom text-center">
+                        <th colspan="2" class="fs-1">Payment Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label class="control-label inputLabel">Card Number</label></td>
+                        <td>@Html.DisplayFor(model => model.CardNumber)</td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label class="control-label inputLabel">Card Holder Name</label></td>
+                        <td>@Html.DisplayFor(model => model.CardHolderName)</td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label class="control-label inputLabel">Expiry Date</label></td>
+                        <td>@Html.DisplayFor(model => model.ExpiryDate)</td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label class="control-label inputLabel">Amount</label></td>
+                        <td>@Html.DisplayFor(model => model.Amount)</td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label class="control-label inputLabel">Payment Date</label></td>
+                        <td>@Html.DisplayFor(model => model.PaymentDate)</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="p-3 border-top">
+                        <td><a asp-action="Index"><i class="bi bi-skip-backward-fill"></i> </a></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

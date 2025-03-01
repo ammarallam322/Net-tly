@@ -37,7 +37,7 @@ namespace teamProject.MapConfig
 
             CreateMap<UserViewModel, ApplicationUser>()
           .ForMember(dst => dst.UserName, opt => opt.MapFrom(src => src.Name))
-          .ForMember(dst => dst.PasswordHash, opt => opt.MapFrom(src => src.Password)) // استخدم PasswordHash
+          .ForMember(dst => dst.PasswordHash, opt => opt.MapFrom(src => src.Password)) 
           .ReverseMap();
 
         }

@@ -20,6 +20,7 @@ namespace teamProject.Models
         public virtual DbSet<Receipt> Receipts { get; set; }
         public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
+        public virtual DbSet<Payment> Payment { get; set; }
 
 
 

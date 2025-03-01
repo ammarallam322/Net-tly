@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Payment Success";
+}
+
+<div class="myMainOwnContaier">
+    <div class="container myOwnContaier rounded p-5">
+        <h2 class="text-center">Payment Successful</h2>
+        <p class="text-center text-success">@ViewData["SuccessMessage"]</p>
+        <div class="text-center">
+            <a asp-action="Index" class="btn btn-primary">Go Back to List</a>
+        </div>
+    </div>
+</div>

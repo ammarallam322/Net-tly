@@ -1,0 +1,71 @@
+﻿@model teamProject.viewModel.PaymentViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="myMainOwnContaier">
+    <div class="container myOwnContaier rounded p-5">
+        <div class="row">
+            <table class="table table-hover">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <form asp-action="Create">
+                <thead class="headerLabel">
+                    <tr class="p-3 border-bottom text-center">
+                        <th colspan="2">Create Payment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="CardNumber" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="CardNumber" class="form-control" />
+                            <span asp-validation-for="CardNumber" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="CardHolderName" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="CardHolderName" class="form-control" />
+                            <span asp-validation-for="CardHolderName" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="ExpiryDate" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="ExpiryDate" class="form-control" />
+                            <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Amount" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Amount" class="form-control" />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="PaymentDate" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="PaymentDate" class="form-control" />
+                            <span asp-validation-for="PaymentDate" class="text-danger"></span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="p-3 border-top">
+                        <td><a asp-action="Index"><i class="bi bi-skip-backward-fill"></i></a></td>
+                        <td><input type="submit" value="Create" class="btn btn-primary createButton" /></td>
+                    </tr>
+                </tfoot>
+                </form>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
