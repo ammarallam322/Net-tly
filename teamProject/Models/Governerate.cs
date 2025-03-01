@@ -6,10 +6,13 @@ namespace teamProject.Models
     public class Governerate
     {
         public int Id { get; set; }
-        [MinLength(3,ErrorMessage = "The number of characters must be greater than or equal to 3")]
-        
+        [Required(ErrorMessage = "Name is required")]
+        [MinLength(3, ErrorMessage = "The name must be at least 3 characters")]
+        [MaxLength(8, ErrorMessage = "The name must be at most 8 characters")]
         public string Name { get; set; }
-        [MaxLength(4,ErrorMessage = "The number must be less than or equal to four")]
+
+        [Required(ErrorMessage = "Code is required")]
+        [MaxLength(4, ErrorMessage = "The code must be at most 4 characters")]
         public string Code { get; set; }
 
         //nav ??virtual?

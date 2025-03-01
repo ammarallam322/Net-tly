@@ -1,23 +1,51 @@
 ﻿@model Microsoft.AspNetCore.Identity.IdentityRole
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Role";
 }
 
-<h1>Edit</h1>
+<div class="myMainOwnContaier">
+    <div class="container myOwnContaier rounded p-5">
+        <div class="row flex-nowrap justify-content-between branchHeader">
+            <h2 class="fs-1 col-sm-6">Edit Role</h2>
+        </div>
 
-@if (ViewBag.ErrorMessage !=null)
-{
-    <div class="alert alert-danger"> @ViewBag.ErrorMessage</div>
-}
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+        }
 
-<form asp-action="Edit" method="post">
-    <input type="hidden" name="id" value="@Model.Id" />
-    <div class="form-group">
-        <label>Name Role</label>
-        <input type="text" name="roleName" value="@Model.Name" class="form-control" required />
+        <div class="row">
+            <form asp-action="Edit" method="post" class="w-100">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <table class="table table-hover">
+                    <thead class="headerLabel">
+                        <tr class="p-3 border-bottom text-center">
+                            <th colspan="2">Edit Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="p-3 border-top border-bottom">
+                            <td><label class="control-label inputLabel">Role Name</label></td>
+                            <td>
+                                <input type="text" name="roleName" value="@Model.Name" class="form-control" required />
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="p-3 border-top">
+                            <td><a asp-action="Index" class="btn btn-secondary"><i class="bi bi-skip-backward-fill"></i> Back</a></td>
+                            <td><button type="submit" class="btn btn-primary createButton">Save</button></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </form>
+        </div>
     </div>
-    <button  type="submit" class="btn btn-warning mt-2">Save</button>
-    <a asp-action="Index" class="btn btn-secondary mt-2">Back To List</a>
-</form>
+</div>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -31,9 +31,18 @@ namespace teamProject.Controllers
         [HttpPost]
         public IActionResult SaveNew(Governerate governerateRequest)
         {
-           repo.Add(governerateRequest);
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Where(x => x.Value.Errors.Count > 0)
+                                       .ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).FirstOrDefault());
+
+                return BadRequest(new { success = false, errors });
+            }
+
+            repo.Add(governerateRequest);
             repo.Save();
-            return RedirectToAction("Index",All());
+
+            return Json(new { success = true });
         }
         [HttpGet]
         public IActionResult Edit(int id) 
