@@ -2,7 +2,12 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "_MyLayout";
 }
+
+<form id="deleteForm">
+    @Html.AntiForgeryToken()
+</form>
 
 <div class="myMainOwnContaier">
     <div class="container myOwnContaier rounded p-5">
@@ -86,10 +91,10 @@
                             <td>${branch.phone2 || '-'}</td>
                             <td>${branch.managerName || 'N/A'}</td>
                             <td class="text-center"> 
-                                    <a href="${detailsUrl}" class="btn btn-primary" title="Details">
+                                <a href="${detailsUrl}" class="btn btn-primary" title="Details">
                                     <i class="fas fa-edit"></i> 
                                 </a> 
-                                <button asp-controller="branch" class="btn btn-danger mx-2" onclick="confirmDelete(${branch.id})"> 
+                                    <button asp-controller="branch" class="btn btn-danger mx-2" onclick="confirmDelete(${branch.id}, '/Branch/DeleteConfirmed')"> 
                                     <i class="fas fa-trash"></i> 
                                 </button> 
                             </td> 

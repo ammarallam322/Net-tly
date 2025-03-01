@@ -2,51 +2,62 @@
 
 @{
     ViewData["Title"] = "Register";
+    Layout = "_LogRegsLayout";
 }
 
-<h1>Register</h1>
+<section class="vh-100 gradient-custom">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-             <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+            <div class="mt-mb-5 pb-pt-5">
+
+              <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
+              <p class="text-white-50 mb-2">Please enter your Information and password!</p>
+
+              <form asp-action="Login">
+                  <div asp-validation-summary="All" class="text-danger"></div>
+                  <div data-mdb-input-init class="form-outline form-white mb-2">
+                    <label asp-for="Name" class="form-label "></label>
+                    <input asp-for="Name" class="form-control form-control-lg" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                  </div>
+
+                  <div data-mdb-input-init class="form-outline form-white mb-2">
+                    <label asp-for="Address" class="form-label "></label>
+                    <input asp-for="Address" class="form-control form-control-lg" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                  </div>
+                  
+                  <div data-mdb-input-init class="form-outline form-white mb-2">
+                    <label asp-for="Email" class="form-label "></label>
+                    <input asp-for="Email" class="form-control form-control-lg" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                  </div>
+
+                  <div data-mdb-input-init class="form-outline form-white mb-2">
+                    <label asp-for="Password" class="form-label mr-auto"></label>
+                    <input asp-for="Password" class="form-control form-control-lg" type="password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                  </div>
+                  
+                  <div data-mdb-input-init class="form-outline form-white mb-2">
+                    <label asp-for="ConfirmPassword" class="form-label mr-auto"></label>
+                    <input asp-for="ConfirmPassword" class="form-control form-control-lg" type="password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                  </div>
+               </form>
+              <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5 my-3" type="submit">Register</button>
+
+            <div>
+              <p class="mb-0">Have an account? <a asp-action="Login"  class="text-white-50 fw-bold">Sign In</a></p>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-           
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Login">Back to Login Page</a>
-</div>
-
-
+  </div>
+</section>

@@ -196,11 +196,11 @@ namespace teamProject.Controllers
             {
                 return NotFound();
             }
-            
+
             branch.Delete(id);
             branch.Save();
 
-            return RedirectToAction("Index");
+            return Json(new { success = true });
         }
     }
 }
