@@ -1,33 +1,89 @@
 ﻿@using teamProject.viewModel
 @model IEnumerable<CentralGovernmentViewModel>
 
-<h2>list of  Centrals</h2>
-<a asp-action="Create" class="btn btn-success">add new Central </a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>name of central</th>
-            <th>government</th>
-            <th> actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.GovernerateName</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_MyLayout";
+}
+
+<form id="deleteForm">
+    @Html.AntiForgeryToken()
+</form>
+
+
+
+@* <h2>list of  Centrals</h2> *@
+@* <a asp-action="Create" class="btn btn-success">add new Central </a> *@
+@* <table class="table"> *@
+@*     <thead> *@
+@*         <tr> *@
+@*             <th>name of central</th> *@
+@*             <th>government</th> *@
+@*             <th> actions</th> *@
+@*         </tr> *@
+@*     </thead> *@
+@*     <tbody> *@
+@*         @foreach (var item in Model) *@
+@*         { *@
+@*             <tr> *@
+@*                 <td>@item.Name</td> *@
+@*                 <td>@item.GovernerateName</td> *@
+@*                 <td> *@
+@*                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">edit</a> *@
+@*                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">delete</a> *@
+@*                 </td> *@
+@*             </tr> *@
+@*         } *@
+@*     </tbody> *@
+@* </table> *@
 @* @{ *@
 @*     ViewData["Title"] = "Index"; *@
 @* } *@
 
 @* <h1>Index</h1> *@
+
+
+
+
+<div class="myMainOwnContaier">
+    <div class="container myOwnContaier rounded p-5">
+        <div class="row flex-nowrap justify-content-between branchHeader">  
+            <h2 class="fs-1 col-sm-6 ">Centrals</h2>
+            @* <h4 class="fs-2 col-sm-6 text-end">All Branches: @ViewBag.TotalCount</h4> *@
+        </div>
+
+        <div class="row">
+            <a asp-action="Create" asp-controller="Central" class="my-3 btn custom-btn btn-3"><span>+ Add Central</span></a>
+        </div>
+
+        <div class="row ">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="p-3 border-top border-bottom pt-3 pt-3">
+                        <th>Name</th>
+                        <th>Government</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td>@item.Name</td>
+                            <td>@item.GovernerateName</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary" title="Details">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button asp-controller="Central" class="btn btn-danger mx-2" onclick="confirmDelete(@item.Id, '/Central/DeleteConfirmed')"> 
+                                    <i class="fas fa-trash"></i> 
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 

@@ -1,29 +1,72 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@using teamProject.viewModel 
+﻿@using teamProject.viewModel 
 @model CentralGovernmentViewModel 
 
- <h2>@(Model.Id == 0 ? "add Central" : " edit Central")</h2> 
 
-<form asp-action= "SaveEdit" method="post"> 
-     <input type="hidden" asp-for="Id" /> 
 
-   <div class="form-group"> 
-       <label asp-for="Name"></label> 
-        <input asp-for="Name" class="form-control" /> 
-        <span asp-validation-for="Name" class="text-danger"></span> 
-    </div> 
+ @* <h2>@(Model.Id == 0 ? "add Central" : " edit Central")</h2>  *@
 
-    <div class="form-group"> 
-        <label asp-for="Gov_Id">Government</label> 
-       <select asp-for="Gov_Id" asp-items="Model.Governerates" class="form-control"></select> 
-         <span asp-validation-for="Gov_Id" class="text-danger"></span> 
-    </div> 
+@* <form asp-action= "SaveEdit" method="post">  *@
+@*      <input type="hidden" asp-for="Id" />  *@
 
-    <button  type="submit" class="btn btn-success">Save</button> 
-     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
- </form> 
+@*    <div class="form-group">  *@
+@*        <label asp-for="Name"></label>  *@
+@*         <input asp-for="Name" class="form-control" />  *@
+@*         <span asp-validation-for="Name" class="text-danger"></span>  *@
+@*     </div>  *@
 
+@*     <div class="form-group">  *@
+@*         <label asp-for="Gov_Id">Government</label>  *@
+@*         <select asp-for="Gov_Id" asp-items="Model.Governerates" class="form-control"></select>    *@
+@*          <span asp-validation-for="Gov_Id" class="text-danger"></span>  *@
+@*     </div>  *@
+
+@*     <button  type="submit" class="btn btn-success">Save</button>  *@
+@*      <a asp-action="Index" class="btn btn-secondary">Cancel</a> *@
+@*  </form>  *@
+
+ <div class="myMainOwnContaier">
+    <div class="container myOwnContaier rounded p-5">
+        <div class="row">
+            <table class="table table-hover">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form method="post" asp-controller="central" asp-action="SaveEdit" asp-route-Id="@Model.Id">
+                <thead class="headerLabel">
+                    <tr class="p-3 border-bottom text-center">
+                        <th colspan="2" class="fs-1">Edit Central</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Name" class="control-label inputLabel"></label></td>
+                        <td>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="p-3 border-top border-bottom">
+                        <td><label asp-for="Gov_Id" class="control-label inputLabel"></label></td>
+                        <td>
+                            <select asp-for="Gov_Id" asp-items="Model.Governerates" class="form form-control">
+                                <option value="0">--Select Department--</option>
+                            </select>
+                            <span asp-validation-for="Gov_Id" class="text-danger"></span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="p-3 border-top">
+                        <td><a asp-action="Index"><i class="bi bi-skip-backward-fill"></i></a></td>
+                        <td><input type="submit" value="Save" class="btn btn-primary createButton" /></td>
+                    </tr>
+                </tfoot>
+                </form>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
