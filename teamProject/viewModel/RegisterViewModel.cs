@@ -6,11 +6,13 @@ namespace teamProject.viewModel
     {
 
         public int Id { get; set; }
-         //adding email property
+        //adding email property
 
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
         [EmailAddress]
+        [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
 
 
