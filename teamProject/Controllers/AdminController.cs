@@ -80,7 +80,7 @@ namespace teamProject.Controllers
         {
             UserViewModel user = new UserViewModel();
             user.Roles = roleManager.Roles.Select(r => r.Name).ToList();
-            return View(user);
+            return View("Create", user);
         }
 
         [HttpPost]
@@ -94,8 +94,9 @@ namespace teamProject.Controllers
             var existingEmail = await userManager.FindByEmailAsync(userViewModel.Email);
             if (existingEmail != null)
             {
-                ModelState.AddModelError("", "Username is already taken.");
-                return View("Register", userViewModel);
+                ModelState.AddModelError("", "Email is already taken.");
+                userViewModel.Roles = roleManager.Roles.Select(r => r.Name).ToList();
+                return View("Create", userViewModel);
             }
             var user = new ApplicationUser
             {
@@ -174,28 +175,60 @@ namespace teamProject.Controllers
             }
             return View(userViewModel);
         }
+        //public async Task<IActionResult> Delete(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var user = await userManager.Users.FirstOrDefaultAsync(m => m.Id == id);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var userVm= mapper.Map<UserViewModel>(user);
 
 
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //    return View(userVm);
+        //}
 
-            var user = await userManager.Users.FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+        //[HttpPost, //ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(string id)
+        //{
+        //    var user = await userManager.FindByIdAsync(id);
+        //    if (user != null)
+        //    {
+        //        // Remove the roles associated with the user
+        //        var rolesForUser = await userManager.GetRolesAsync(user);
+        //        if (rolesForUser.Any())
+        //        {
+        //            var result = await userManager.RemoveFromRolesAsync(user, rolesForUser);
+        //            if (!result.Succeeded)
+        //            {
+        //                // Handle failure if necessary
+        //                ModelState.AddModelError("", "Error removing user roles.");
+        //                return View(user);
+        //            }
+        //        }
 
-            var userVm= mapper.Map<UserViewModel>(user);
+        //        // Now delete the user
+        //        var deleteResult = await userManager.DeleteAsync(user);
+        //        if (deleteResult.Succeeded)
+        //        {
+        //            return Json(new { success = true });
+        //        }
 
+        //        // Handle failure if the user deletion didn't succeed
+        //        ModelState.AddModelError("", "Error deleting user.");
+        //        return View(user);
+        //    }
+        //    return NotFound();
+        //}
 
-            return View(userVm);
-        }
-
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
@@ -210,8 +243,7 @@ namespace teamProject.Controllers
                     if (!result.Succeeded)
                     {
                         // Handle failure if necessary
-                        ModelState.AddModelError("", "Error removing user roles.");
-                        return View(user);
+                        return Json(new { success = false, message = "Error removing user roles." });
                     }
                 }
 
@@ -219,17 +251,13 @@ namespace teamProject.Controllers
                 var deleteResult = await userManager.DeleteAsync(user);
                 if (deleteResult.Succeeded)
                 {
-                    return RedirectToAction(nameof(Index));
+                    return Json(new { success = true, message = "User deleted successfully." });
                 }
 
                 // Handle failure if the user deletion didn't succeed
-                ModelState.AddModelError("", "Error deleting user.");
-                return View(user);
+                return Json(new { success = false, message = "Error deleting user." });
             }
-            return NotFound();
+            return Json(new { success = false, message = "User not found." });
         }
-
-
-
     }
 }
