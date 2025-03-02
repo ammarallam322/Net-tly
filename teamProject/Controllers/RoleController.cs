@@ -83,20 +83,19 @@ namespace teamProject.Controllers
            return RedirectToAction("Index", All());
         }
 
-
-        public async Task< IActionResult> Delete(string id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task< IActionResult> DeleteConfirmed(string id)
         {
            
             var role =await roleManager.FindByIdAsync(id);
             if(role ==null)
             {
-                return NotFound("Role Is Not Found");
+                return Json(new { success = false, message = "Role not found." });
             }
             await roleManager.DeleteAsync(role);
 
-            return RedirectToAction("Index", All());
-
-           
+            return Json(new { success = true, message = "Role deleted successfully." });
         }
     }
 }
