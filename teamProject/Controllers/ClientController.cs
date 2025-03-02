@@ -151,18 +151,18 @@ namespace teamProject.Controllers
             return View(clientVM);
         }
 
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            var myClient = clientRepository.GetById(id);
-            ClientViewModel clientVM = mapper.Map<ClientViewModel>(myClient);
-            if (clientVM == null)
-            {
-                return NotFound();
-            }
+        //[HttpGet]
+        //public IActionResult Delete(int id)
+        //{
+        //    var myClient = clientRepository.GetById(id);
+        //    ClientViewModel clientVM = mapper.Map<ClientViewModel>(myClient);
+        //    if (clientVM == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(clientVM);
-        }
+        //    return View(clientVM);
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -171,7 +171,7 @@ namespace teamProject.Controllers
             var Client = clientRepository.GetById(id);
             if (Client == null)
             {
-                return NotFound();
+                return Json(new { success = false, message = "Client not found." });
             }
             try
             {
@@ -180,9 +180,9 @@ namespace teamProject.Controllers
             }
             catch (Exception ex)
             {
-                return View(Client);
+                return Json(new { success = false, message = "Error removing client." });
             }
-            return RedirectToAction(nameof(Index));
+            return Json(new { success = true, message = "Client deleted successfully." });
         }
 
     }

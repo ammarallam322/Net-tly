@@ -1,8 +1,4 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-function confirmDelete(id, route) {
+﻿function confirmDelete(id, route) {
     Swal.fire({
         title: "Are you sure you want to delete?",
         text: "You Can't Go Back!",
@@ -24,19 +20,19 @@ function confirmDelete(id, route) {
                 },
                 body: `id=${id}&__RequestVerificationToken=${token}`
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire("Deleted!", "The item has been deleted.", "success")
-                            .then(() => location.reload());
-                    } else {
-                        Swal.fire("Error!", data.message || "Something went wrong.", "error");
-                    }
-                })
-                .catch(error => {
-                    console.error("Fetch Error:", error);
-                    Swal.fire("Error!", "Something went wrong.", "error");
-                });
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire("Deleted!", "The item has been deleted.", "success")
+                        .then(() => location.reload());
+                } else {
+                    Swal.fire("Error!", data.message || "Something went wrong.", "error");
+                }
+            })
+            .catch(error => {
+                console.error("Fetch Error:", error);
+                Swal.fire("Error!", "Something went wrong.", "error");
+            });
         }
     });
 }

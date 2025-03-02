@@ -43,9 +43,12 @@
                                 <a asp-action="Edit" asp-controller="Client" asp-route-Id="@item.Id" class="btn btn-primary" title="Details">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a asp-action="Delete" asp-controller="Client" asp-route-Id="@item.Id" class="btn btn-danger mx-2">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+                                @* <a asp-action="Delete" asp-controller="Client" asp-route-Id="@item.Id" class="btn btn-danger mx-2"> *@
+                                @*     <i class="fas fa-trash"></i> *@
+                                @* </a> *@
+                                <button asp-controller="Client" class="btn btn-danger mx-2" onclick="confirmDelete(@item?.Id, '/Client/DeleteConfirmed')" title="Delete"> 
+                                    <i class="fas fa-trash"></i> 
+                                </button>
                             </td>
                         </tr>
                     }
