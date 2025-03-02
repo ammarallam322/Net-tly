@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var isAdmin = User.IsInRole("Admin");
+    var isEmployee = User.IsInRole("Employee");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -67,37 +71,41 @@
                         <span class="menu-title">Dashboard</span>
                     </a>
                 </li>
+                @if (isEmployee)
+                {
+                    <!-- Employee Section -->
+                    <li class="nav-item sidebar-category">
+                        <p>Employee</p>
+                        <span></span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#client-menu" aria-expanded="false" aria-controls="client-menu">
+                            <i class="fa-solid fa-user-tie menu-icon"></i>
+                            <span class="menu-title">Client</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="client-menu">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Client" asp-action="Index">All Clients</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Client" asp-action="Create">Add Client</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Reciet" asp-action="Index">
+                            <i class="fa-solid fa-file-invoice menu-icon"></i>
+                            <span class="menu-title">All Receits</span>
+                        </a>
+                    </li>
+                }
 
-                <!-- Employee Section -->
-                <li class="nav-item sidebar-category">
-                    <p>Employee</p>
-                    <span></span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#client-menu" aria-expanded="false" aria-controls="client-menu">
-                        <i class="fa-solid fa-user-tie menu-icon"></i>
-                        <span class="menu-title">Client</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="client-menu">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Client" asp-action="Index">All Clients</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Client" asp-action="Create">Add Client</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Reciet" asp-action="Index">
-                        <i class="fa-solid fa-file-invoice menu-icon"></i>
-                        <span class="menu-title">All Receits</span>
-                    </a>
-                </li>
-
-                <!-- Admin Section -->
+                @if (isAdmin)
+                
+                {
                 <li class="nav-item sidebar-category">
                     <p>Admin</p>
                     <span></span>
@@ -232,8 +240,13 @@
                     </div>
                 </li>
 
-
-
+                }
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Account" asp-action="Logout">
+                        <i class="fa-solid fa-sign-out-alt menu-icon"></i>
+                        <span class="menu-title">Logout</span>
+                    </a>
+                </li>
             </ul>
         </nav>
 

@@ -143,14 +143,41 @@ namespace teamProject.Controllers
             {
                 try
                 {
-                    //getting from db
+                    // Get the user from the database
                     var user = await userManager.FindByIdAsync(id);
 
                     if (user != null)
                     {
-                        //mapping same ref
+                        // Map the non-password properties
                         mapper.Map(userViewModel, user);
 
+                        // Update the password if a new one is provided
+                        if (!string.IsNullOrEmpty(userViewModel.Password))
+                        {
+                            // Remove the old password
+                            var removePasswordResult = await userManager.RemovePasswordAsync(user);
+                            if (!removePasswordResult.Succeeded)
+                            {
+                                foreach (var error in removePasswordResult.Errors)
+                                {
+                                    ModelState.AddModelError("", error.Description);
+                                }
+                                return View(userViewModel); // Stop if there's an error in removing the password
+                            }
+
+                            // Add the new password and hash it
+                            var addPasswordResult = await userManager.AddPasswordAsync(user, userViewModel.Password);
+                            if (!addPasswordResult.Succeeded)
+                            {
+                                foreach (var error in addPasswordResult.Errors)
+                                {
+                                    ModelState.AddModelError("", error.Description);
+                                }
+                                return View(userViewModel); // Stop if there's an error in adding the new password
+                            }
+                        }
+
+                        // Update the other user details
                         var result = await userManager.UpdateAsync(user);
                         if (result.Succeeded)
                         {
@@ -167,14 +194,13 @@ namespace teamProject.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    var x = 0;
-                   
-                        throw;
-                    
+                    throw;
                 }
             }
             return View(userViewModel);
         }
+
+
         //public async Task<IActionResult> Delete(string id)
         //{
         //    if (id == null)

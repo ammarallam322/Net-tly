@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using teamProject.Models;
 using teamProject.viewModel;
 
@@ -49,8 +51,8 @@ namespace teamProject.Controllers
                     PasswordHash = UserFromRequest.Password,
                     Address = UserFromRequest.Address,
                 };
-              
-               
+
+
                 // saving to database
                 IdentityResult result = await userManager.CreateAsync(appuser, UserFromRequest.Password);
                 var AddUserToRole = await userManager.AddToRoleAsync(appuser, "Employee");
@@ -64,7 +66,7 @@ namespace teamProject.Controllers
 
                     return RedirectToAction("Login", "Account");
                 }
-                else          
+                else
                 {
                     foreach (var i in result.Errors) { ModelState.AddModelError("", i.Description); }
 
@@ -98,10 +100,23 @@ namespace teamProject.Controllers
 
                     if (found)
                     {
+                        var roles = await userManager.GetRolesAsync(userfromDB);
+                        var claims = new List<Claim>
+                        {
+                             new Claim(ClaimTypes.Name, userfromDB.UserName),
+                             new Claim(ClaimTypes.Email, userfromDB.Email)
+                        };
+                        foreach (var role in roles)
+                        {
+                            claims.Add(new Claim(ClaimTypes.Role, role));
+                        }
+                        var claimsIdentity = new ClaimsIdentity(claims, "login");
+                        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
                         //Create  session Cooike and redirect to home page
                         await signInManager.SignInAsync(userfromDB, false);
 
+                        await HttpContext.SignInAsync(claimsPrincipal);
                         return RedirectToAction("Index", "Client");
 
                     }
@@ -119,6 +134,8 @@ namespace teamProject.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
+            await HttpContext.SignOutAsync();
+
             return RedirectToAction("Login");
         }
 
