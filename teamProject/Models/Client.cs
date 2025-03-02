@@ -12,7 +12,8 @@ namespace teamProject.Models
         public string Phone { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
-        public string SSN { get; set; }
+        public string SSN { get; set; } 
+        public DateTime Subscription { get;  } = DateTime.Now;
 
         [ForeignKey("ServiceProvider")]
 

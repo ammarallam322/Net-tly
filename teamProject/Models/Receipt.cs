@@ -16,6 +16,8 @@ namespace teamProject.Models
         public DateOnly? Start_Date { get; set; }
         public DateOnly? End_Date { get; set; }
         public DateTime? Paid_Date { get; set; }
+
+        public int Paid_Count { get; set; } 
         public PaymentStatus paymentStatus { get; set; }
         public double Total_Price { get; set; }
         public virtual myServiceProvider? ServiceProvider { get; set; }

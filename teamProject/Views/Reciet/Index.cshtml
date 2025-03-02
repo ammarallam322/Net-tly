@@ -50,6 +50,11 @@
                 </tr>
             </tbody>
         </table>
+        <form method="post" asp-action="Paid" asp-controller="Reciet">
+            <input asp-for="Client_Id" type="hidden" id="client" />
+            <button asp-action="" asp-controller="">Paid</button>
+        </form>
+       
     </div>
 
 </div>
@@ -76,7 +81,8 @@
                             $('#packageName').text(data.packageName);
                             $('#packagePrice').text(data.package_Price);
                             $('#totalPrice').text(data.total_Price);
-                            $('#serviceProviderName').text(data.serviceProviderName);
+                            $('#serviceProviderName').val(data.serviceProviderName);
+                            $('#client').text(data.clientId);
                         },
                         error: function () {
                             alert('Error retrieving data.');

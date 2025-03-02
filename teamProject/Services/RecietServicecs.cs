@@ -36,6 +36,11 @@ namespace teamProject.Services
                 OfferName = offerData.GetById(clientData.Offer_Id).Name,
                 PackageName = packageData.GetById(clientData.Package_Id).Name,
                 Package_Price = packageData.GetById(clientData.Package_Id).Price,
+                Start_Date =DateOnly.FromDateTime( clientData.Subscription),
+                End_Date = DateOnly.FromDateTime(clientData.Subscription).AddMonths(offerData.GetById(clientData.Offer_Id).offerduration),
+                Paid_Count = offerData.GetById(clientData.Offer_Id).offerduration,
+
+
 
                 Total_Price = clientData.package.Price - (clientData.package.Price * OfferValue / 100)
 
@@ -44,6 +49,24 @@ namespace teamProject.Services
             return data;
         }
 
+        public void Paid(ReceitViewModel receitView)
+        {
+            var client = clientRepo.GetById(receitView.Client_Id);
+            if (client.Receipt.Paid_Count <= 0)
+            {
+                client.Receipt.Total_Price = client.package.Price;
 
+            }
+            client.Receipt = new Receipt
+            {
+
+                Paid_Count = --receitView.Paid_Count,
+
+            };
+           
+            
+            clientRepo.Update(client);
+
+        }   
     }
 }

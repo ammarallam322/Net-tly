@@ -6,10 +6,11 @@ namespace teamProject.viewModel
 {
     public class ReceitViewModel
     {
-       
-        //public DateOnly? Start_Date { get; set; }
-        //public DateOnly? End_Date { get; set; }
-        //public DateTime? Paid_Date { get; set; }
+
+        public DateOnly? Start_Date { get; set; }
+        public DateOnly? End_Date { get; set; }
+        public DateTime? Paid_Date { get; set; }
+        public int Paid_Count { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
