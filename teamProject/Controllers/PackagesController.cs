@@ -111,29 +111,30 @@ namespace teamProject.Controllers
             }
             return View(packageVM);
         }
-        public IActionResult Delete(int id)
-        {
+        //public IActionResult Delete(int id)
+        //{
            
-            var package = repo.GetById(id);
-            if (package == null)
-            {
-                return NotFound();
-            }
+        //    var package = repo.GetById(id);
+        //    if (package == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(package);
-        }
+        //    return View(package);
+        //}
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
             var package = repo.GetById(id);
             if (package != null)
             {
                 repo.Delete(id);
+                repo.Save();
             }
 
-            repo.Save();
-            return RedirectToAction(nameof(Index));
+            return Json(new { success = true, message = "Package deleted successfully." });
         }
 
 

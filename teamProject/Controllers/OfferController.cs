@@ -197,20 +197,20 @@ namespace teamProject.Controllers
             return RedirectToAction(nameof(Index));  
         }
 
-        public async Task<IActionResult> Delete(int id)
-        {
-            var offer = offerRepository.GetById(id);
-            if (offer == null) return NotFound();
-            return View("Delete",offer);
-        }
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    var offer = offerRepository.GetById(id);
+        //    if (offer == null) return NotFound();
+        //    return View("Delete",offer);
+        //}
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             offerRepository.Delete(id);
             offerRepository.Save();
-            return RedirectToAction("Index",All());
+            return Json(new { success = true, message = "Offer deleted successfully." });
         }
     }
 }

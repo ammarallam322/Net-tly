@@ -5,6 +5,10 @@
     Layout = "_MyLayout";
 }
 
+<form id="deleteForm">
+    @Html.AntiForgeryToken()
+</form>
+
 <div class="myMainOwnContaier">
     <div class="container myOwnContaier rounded p-5">
         <div class="row flex-nowrap justify-content-between branchHeader">
@@ -46,8 +50,8 @@
                                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info mx-2" title="Details">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <button class="btn btn-danger" onclick="confirmDelete(@item.Id, '/Packages/DeleteConfirmed')">
-                                    <i class="fas fa-trash"></i>
+                                <button asp-controller="Packages" class="btn btn-danger mx-2" onclick="confirmDelete(@item.Id, '/Packages/DeleteConfirmed')" title="Delete"> 
+                                    <i class="fas fa-trash"></i> 
                                 </button>
                             </td>
                         </tr>
