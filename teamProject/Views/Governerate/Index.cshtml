@@ -4,6 +4,10 @@
     ViewData["Title"] = "Governerates List";
 }
 
+<form id="deleteForm">
+    @Html.AntiForgeryToken()
+</form>
+
 <div class="myMainOwnContaier">
     <div class="container myOwnContaier rounded p-5">
         <div class="row flex-nowrap justify-content-between branchHeader">
@@ -55,10 +59,9 @@
                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="#" class="btn btn-danger mx-2" onclick="confirmDelete(@item.Id)">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-
+                                <button asp-controller="Governerate" class="btn btn-danger mx-2" onclick="confirmDelete(@item?.Id, '/Governerate/Delete')" title="Delete"> 
+                                    <i class="fas fa-trash"></i> 
+                                </button>
                             </td>
                         </tr>
                     }
@@ -124,19 +127,5 @@
                 setTimeout(() => formDiv.style.display = "none", 300);
             }
         });
-
-        function confirmDelete(id) {
-            let deleteUrl = "/Governerate/Delete/" + id; // تأكد من أن هذا الرابط صحيح وموجود في Controller
-            let confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
-
-            if (confirmDeleteBtn) {
-                confirmDeleteBtn.setAttribute("href", deleteUrl);
-            }
-
-            let deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-           
-            deleteModal.show();
-        }
-
     </script>
 }

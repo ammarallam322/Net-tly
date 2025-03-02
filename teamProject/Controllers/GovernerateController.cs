@@ -20,12 +20,14 @@ namespace teamProject.Controllers
         {
             return View("Index", All());
         }
-        [HttpGet]
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id) 
         {
             repo.Delete(id);
             repo.Save();
-            return RedirectToAction("Index", All());
+            return Json(new { success = true, message = "Government deleted successfully." });
         }
 
         [HttpPost]
@@ -65,7 +67,5 @@ namespace teamProject.Controllers
             }
             return View("Edit",governerateRequest);
         }
-
-
     }
 }
