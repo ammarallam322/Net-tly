@@ -43,5 +43,10 @@ namespace teamProject.Repository
            
             return AllOfferPackages;
         }
+
+        public Client GetClientByPhone(string phone)
+        {
+            return GetAll().FirstOrDefault(x => x.Phone == phone);
+        }
     }
 }

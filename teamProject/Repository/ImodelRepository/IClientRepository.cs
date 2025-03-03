@@ -6,6 +6,6 @@ namespace teamProject.Repository.ImodelRepository
     {
         public List<package> GetServicePackages(int ServiceId);
         public List<Offer> GetOfferService(int ServiceId);
-        
+        public Client GetClientByPhone (string phone);
     }
 }
