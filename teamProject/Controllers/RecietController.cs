@@ -27,7 +27,6 @@ namespace teamProject.Controllers
 
             return View(receit);
         }
-
         public IActionResult GetClientDetails(int clientId)
         {
 

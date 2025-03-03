@@ -34,9 +34,10 @@ namespace teamProject.Services
                 Client_Id = clientData.Id,
                 ServiceProviderName = clientData.ServiceProvider.Name,
                 OfferName = offerData.GetById(clientData.Offer_Id).Name,
+                offerStatus = (clientData.Offer.offerStatus).ToString(),
                 PackageName = packageData.GetById(clientData.Package_Id).Name,
                 Package_Price = packageData.GetById(clientData.Package_Id).Price,
-                Start_Date =DateOnly.FromDateTime( clientData.Subscription),
+                Start_Date = DateOnly.FromDateTime( clientData.Subscription),
                 End_Date = DateOnly.FromDateTime(clientData.Subscription).AddMonths(offerData.GetById(clientData.Offer_Id).offerduration),
                 Paid_Count = offerData.GetById(clientData.Offer_Id).offerduration,
 
@@ -55,18 +56,14 @@ namespace teamProject.Services
             if (client.Receipt.Paid_Count <= 0)
             {
                 client.Receipt.Total_Price = client.package.Price;
-
-            }
-            client.Receipt = new Receipt
+                client.Offer.offerStatus = OfferStatus.Expired;
+            } 
+            else
             {
-
-                Paid_Count = --receitView.Paid_Count,
-
-            };
-           
-            
+                client.Receipt.Paid_Count--;
+            }
             clientRepo.Update(client);
-
+            clientRepo.Save();
         }   
     }
 }

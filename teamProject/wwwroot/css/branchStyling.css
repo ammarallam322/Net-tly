@@ -1,11 +1,15 @@
 body {
     font-family: 'Cairo', sans-serif;
 }
+:root {
+    height: 100vh;
+}
 .myMainOwnContaier {
     background-color: #f3f5f7;
     margin: auto;
-    padding: 50px 50px;
+    padding: 75px 50px;
     width: 100%;
+    height: 100%;
 }
 .branchHeader {
     border-bottom: solid 1px rgba(0, 0, 0, 0.268);
@@ -125,7 +129,6 @@ body {
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
     --bs-gutter-x: -0.5rem;
 }
-
 /*=========== register & login styling ============*/
 .form-label,
 .form-check {
