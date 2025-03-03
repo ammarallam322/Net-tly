@@ -29,10 +29,10 @@ namespace teamProject.Controllers
             return View("Index", receipt);
         }
 
-        public IActionResult GetClientDetails(ReceitViewModel clientView)
+        public IActionResult GetClientDetails(string phoneNumber)
         {
             
-            var client = ClientItSelf.GetClientByPhone(clientView.Phone);
+            var client = ClientItSelf.GetClientByPhone(phoneNumber);
 
             var receit = recietServicecs.GetRecietData(client.Id);
             if (receit == null)
@@ -45,7 +45,17 @@ namespace teamProject.Controllers
 
 
 
+        public IActionResult Paid(int clientId)
+        {
 
+           recietServicecs.Paid(clientId);
+            var receit = recietServicecs.GetRecietData(clientId);
+            if (receit == null)
+            {
+                return NotFound();
+            }
+            return Json(receit);
+        }
 
 
         //public IActionResult Index(string phone)

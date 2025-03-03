@@ -4,96 +4,133 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="container mt-4"> 
+<div class="container mt-4">
     <div class="form-group">
-        <form asp-action="" method="post" asp-controller="Reciet">
-            <label asp-for="Phone"></label>
-            <input asp-for="Phone" class="form-" id="phoneNumber"/>
-            <input type="submit" value="Search" class="btn btn-success" id="searchBtn"/>
-        </form>
+        @* <form asp-action="" method="post" asp-controller="Reciet"> *@
+
+        @* </form> *@
+
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" class="form-" id="phoneNumber" />
+        <input type="submit" value="Search" class="btn btn-success" id="searchBtn" />
     </div>
     <br />
 </div>
 <hr />
-
-
 <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                    <th>Mobile</th>
-                    <th>Service Provider</th>
-                    <th>Package Name</th>
-                    <th>Package Price</th>
-                    <th>Offer Name</th>
-                    <th>Offer Status</th>
-                    <th>Total Price</th>
-                    <th>Start Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td id="name"></td>
-                    <td id="address"></td>
-                    <td id="phone"></td>
-                    <td id="mobile"></td>
-                    <td id="serviceProviderName"></td>
-                    <td id="packageName"></td>
-                    <td id="packagePrice"></td>
-                    <td id="offerName"></td>
-                    <td id="offerStatus"></td>
-                    <td id="totalPrice"></td>
-                    <td id="startDate"></td> 
-                </tr>
-            </tbody>
-        </table>
-        <form method="post" asp-action="Paid" asp-controller="Reciet">
-            <input asp-for="Client_Id" type="hidden" id="client" />
-            <button asp-action="" asp-controller="">Paid</button>
-        </form>
-    </div>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Mobile</th>
+                <th>Service Provider</th>
+                <th>Package Name</th>
+                <th>Package Price</th>
+                <th>Offer Name</th>
+                <th>Offer Status</th>
+                <th>Total Price</th>
+                <th>Start Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="name"></td>
+                <td id="address"></td>
+                <td id="phone"></td>
+                <td id="mobile"></td>
+                <td id="serviceProviderName"></td>
+                <td id="packageName"></td>
+                <td id="packagePrice"></td>
+                <td id="offerName"></td>
+                <td id="offerStatus"></td>
+                <td id="totalPrice"></td>
+                <td id="startDate"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <input id="clientid" />
+    <input type="submit" value="Paid" class="btn btn-success" id="paidBtn" />
+
+
+</div>
 
 </div>
 
 @section Scripts {
-        <script>
-            $(document).ready(function () {
-                $('#searchBtn').click(function () {
-                    var phoneNumber = $(this).val();
-                    console.log(phoneNumber);
-                    if (phoneNumber) {
-                        $.ajax({
-                            url: '@Url.Action("GetClientDetails", "Reciet")',
-                            type: 'GET',
-                            data: { phoneNumber: phoneNumber },
-                            success: function (data) {
-                                $('#phone').text(data.phone);
-                                $('#address').text(data.address);
-                                $('#offerStatus').text(data.offerStatus);
-                                $('#startDate').text(data.start_Date);
-                                $('#name').text(data.name);
-                                $('#mobile').text(data.mobile);
-                                $('#offerName').text(data.offerName);
-                                $('#packageName').text(data.packageName);
-                                $('#packagePrice').text(data.package_Price);
-                                $('#totalPrice').text(data.total_Price);
-                                $('#serviceProviderName').val(data.serviceProviderName);
-                                $('#client').text(data.clientId);
-                            },
-                            error: function () {
-                                alert('Error retrieving data.');
-                            }
-                        });
-                    } else {
-                        // Clear the table if no client is selected
-                        $('#clientDetails td').text('');
-                    }
-                });
+    <script>
+               $(document).ready(function () {
+
+            $('#searchBtn').click(function (e) {
+                e.preventDefault(); // Prevent the default form submission
+                var phoneNumber = $('#phoneNumber').val();
+                if (phoneNumber) {
+                    $.ajax({
+                        url: '@Url.Action("GetClientDetails", "Reciet")',
+                        type: 'GET',
+                        data: { phoneNumber: phoneNumber },
+                        success: function (data) {
+                            $('#phone').text(data.phone);
+                            $('#address').text(data.address);
+                            $('#offerStatus').text(data.offerStatus);
+                            $('#startDate').text(data.start_Date);
+                            $('#name').text(data.name);
+                            $('#mobile').text(data.mobile);
+                            $('#offerName').text(data.offerName);
+                            $('#packageName').text(data.packageName);
+                            $('#packagePrice').text(data.package_Price);
+                            $('#totalPrice').text(data.total_Price);
+                            $('#serviceProviderName').text(data.serviceProviderName);
+                            $('#clientid').val(data.client_Id);
+                        },
+                        error: function () {
+                            alert('Error retrieving data.');
+                        }
+                    });
+                } else {
+                    // Clear the table if no client is selected
+                    $('#clientDetails td').text('');
+                }
             });
-        </script>
+
+            $('#paidBtn').click(function (e) {
+                e.preventDefault(); // Prevent default form submission
+                var clientId = $('#clientid').val();
+
+                console.log(clientId);
+                if (clientId) {
+                    $.ajax({
+                        url: '@Url.Action("Paid", "Reciet")',
+                        type: 'GET',
+                        data: { clientId: clientId },
+                        success: function (data) {
+                            // Handle the data returned by the Paid action
+                            $('#phone').text(data.phone);
+                            $('#address').text(data.address);
+                            $('#offerStatus').text(data.offerStatus);
+                            $('#startDate').text(data.start_Date);
+                            $('#name').text(data.name);
+                            $('#mobile').text(data.mobile);
+                            $('#offerName').text(data.offerName);
+                            $('#packageName').text(data.packageName);
+                            $('#packagePrice').text(data.package_Price);
+                            $('#totalPrice').text(data.total_Price);
+                            $('#serviceProviderName').text(data.serviceProviderName);
+                            $('#client').val(data.clientId); // Update client hidden input if needed
+                        },
+                        error: function () {
+                            alert('Error retrieving data.');
+                        }
+                    });
+                } else {
+                    $('#clientDetails td').text(''); // Clear the details if no client ID
+                }
+            });
+        });
+
+    </script>
 }
 
 
