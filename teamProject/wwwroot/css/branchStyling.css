@@ -129,6 +129,31 @@ body {
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
     --bs-gutter-x: -0.5rem;
 }
+#paidBtn,
+#searchBtn {
+    background-color: #223e9c;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    width: 200px;
+    transition: all .25s ease-in-out;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+#paidBtn:hover,
+#searchBtn:hover {
+    background-color: #1b2d6a;
+}
+.recietSerach {
+    flex-wrap: nowrap;
+}
+thead > tr > th {
+    background-color: #607d8b !important;
+    color: white !important;
+
+}
 /*=========== register & login styling ============*/
 .form-label,
 .form-check {

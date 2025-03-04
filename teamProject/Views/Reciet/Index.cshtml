@@ -4,59 +4,56 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="container mt-4">
-    <div class="form-group">
-        @* <form asp-action="" method="post" asp-controller="Reciet"> *@
+<div class="myMainOwnContaier">
+    <div class="container myOwnContaier rounded p-5">
+        <div class="row flex-nowrap justify-content-between branchHeader">  
+            <h2 class="fs-1 col-sm-6 ">Reciet</h2>
+        </div>
 
-        @* </form> *@
+        <div class="row my-4 recietSerach">
+            <input asp-for="Phone" class="form-control col-sm-6 w-25" id="phoneNumber" placeholder="Phone ..."/>
+            <input type="submit" value="Search" class="col-sm-6 w-25 mx-5" id="searchBtn" />
+        </div>
 
-        <label asp-for="Phone"></label>
-        <input asp-for="Phone" class="form-" id="phoneNumber" />
-        <input type="submit" value="Search" class="btn btn-success" id="searchBtn" />
+        <div class="row mt-5">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="p-3 border-top border-bottom pt-3 pt-3">
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Mobile</th>
+                        <th>Service Provider</th>
+                        <th>Package Name</th>
+                        <th>Package Price</th>
+                        <th>Offer Name</th>
+                        <th>Offer Status</th>
+                        <th>Total Price</th>
+                        <th>Start Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="name"></td>
+                        <td id="address"></td>
+                        <td id="phone"></td>
+                        <td id="mobile"></td>
+                        <td id="serviceProviderName"></td>
+                        <td id="packageName"></td>
+                        <td id="packagePrice"></td>
+                        <td id="offerName"></td>
+                        <td id="offerStatus"></td>
+                        <td id="totalPrice"></td>
+                        <td id="startDate"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <input id="clientid" hidden/>
+                <input type="submit" value="Paid" id="paidBtn" />
+            </div>
+        </div>
     </div>
-    <br />
-</div>
-<hr />
-<div class="table-responsive">
-    <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Mobile</th>
-                <th>Service Provider</th>
-                <th>Package Name</th>
-                <th>Package Price</th>
-                <th>Offer Name</th>
-                <th>Offer Status</th>
-                <th>Total Price</th>
-                <th>Start Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td id="name"></td>
-                <td id="address"></td>
-                <td id="phone"></td>
-                <td id="mobile"></td>
-                <td id="serviceProviderName"></td>
-                <td id="packageName"></td>
-                <td id="packagePrice"></td>
-                <td id="offerName"></td>
-                <td id="offerStatus"></td>
-                <td id="totalPrice"></td>
-                <td id="startDate"></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <input id="clientid" />
-    <input type="submit" value="Paid" class="btn btn-success" id="paidBtn" />
-
-
-</div>
-
 </div>
 
 @section Scripts {
